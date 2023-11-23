@@ -1,6 +1,6 @@
 /*
 Semestre 2024-1
-Proyecto Final de 
+Proyecto Final de
 	Karen Mariel Bastida Vargas
 	Humberto Ignacio Hernández Olvera
 */
@@ -53,7 +53,7 @@ bool cambiaNumeroDecenas = false;
 float cambiaNumeroOffset = 0.0f;
 
 // ANIMACION DE DIA Y NOCHE
-float tiempoDiaNoche = 0.0f, maxTiempo=150;
+float tiempoDiaNoche = 0.0f, maxTiempo = 150;
 
 // ANIMACION DE INICIO
 float retraeResorte = 1.0f, retraeResorteOffset = 0.05f;
@@ -313,7 +313,7 @@ void CreateObjects()
 
 
 	};
-	
+
 
 	unsigned int flechaIndices[] = {
 	   0, 1, 2,
@@ -354,15 +354,15 @@ void CreateObjects()
 
 	};
 
-	Mesh *obj1 = new Mesh();
+	Mesh* obj1 = new Mesh();
 	obj1->CreateMesh(vertices, indices, 32, 12);
 	meshList.push_back(obj1);
 
-	Mesh *obj2 = new Mesh();
+	Mesh* obj2 = new Mesh();
 	obj2->CreateMesh(vertices, indices, 32, 12);
 	meshList.push_back(obj2);
 
-	Mesh *obj3 = new Mesh();
+	Mesh* obj3 = new Mesh();
 	obj3->CreateMesh(floorVertices, floorIndices, 32, 6);
 	meshList.push_back(obj3);
 
@@ -578,33 +578,33 @@ void CrearPrimitiva2()
 		0.75f,		0.2f,	0.35f,	0.25f,	0.7f,	0.0f,	-1.0f,	0.0f, //I1
 		1.0,		0.2f,	0.15f,	0.0f,	0.3f,	0.0f,	-1.0f,	0.0f, //G1
 		1.0f,		0.2f,	0.35f,	0.0f,	0.7f,	0.0f,	-1.0f,	0.0f, //H1
-		 //S		T
-		0.0f,		0.0f,	0.35,	0.0f,	0.8f,	1.0f,	0.0f,	1.0f, //A
-		0.0f,		0.2f,	0.35,	0.1f,	0.8f,	1.0f,	0.0f,	1.0f, //A1
-		0.0f,		0.2f,	0.15f,	0.0f,	1.0f,	1.0f,	0.0f,	1.0f, //B1
-		0.0f,		0.0f,	0.15f,	0.1f,	1.0f,	1.0f,	0.0f,	1.0f, //B
-		0.25,		0.2f,	0.15f,	0.0f,	0.8f,	1.0f,	0.0f,	1.0f, //C1
-		0.25,		0.0f,	0.15f,	0.1f,	0.8f,	1.0f,	0.0f,	1.0f, //C
-		0.35f,		0.2f,	0.1f,	0.0f,	1.0f,	1.0f,	0.0f,	1.0f, //D1
-		0.35f,		0.0f,	0.1f,	0.1f,	1.0f,	1.0f,	0.0f,	1.0f, //D
-		0.65f,		0.2f,	0.1f,	0.0f,	0.8f,	-1.0f,	0.0f,	1.0f, //E1
-		0.65f,		0.0f,	0.1f,	0.1f,	0.8f,	-1.0f,	0.0f,	1.0f, //E
-		0.75f,		0.2f,	0.15,	0.0f,	1.0f,	-1.0f,	0.0f,	1.0f, //F1
-		0.75f,		0.0f,	0.15,	0.1f,	1.0f,	-1.0f,	0.0f,	1.0f, //F
-		1.0,		0.2f,	0.15f,	0.0f,	0.8f,	-1.0f,	0.0f,	1.0f, //G1
-		1.0,		0.0f,	0.15f,	0.1f,	0.8f,	-1.0f,	0.0f,	1.0f, //G
-		1.0f,		0.2f,	0.35f,	0.0f,	1.0f,	-1.0f,	0.0f,	-1.0f, //H1
-		1.0f,		0.0f,	0.35f,	0.1f,	1.0f,	-1.0f,	0.0f,	-1.0f, //H
-		0.75f,		0.2f,	0.35f,	0.0f,	0.8f,	-1.0f,	0.0f,	-1.0f, //I1
-		0.75f,		0.0f,	0.35f,	0.1f,	0.8f,	-1.0f,	0.0f,	-1.0f, //I
-		0.65f,		0.2f,	0.4f,	0.0f,	1.0f,	-1.0f,	0.0f,	-1.0f, //J1
-		0.65f,		0.0f,	0.4f,	0.1f,	1.0f,	-1.0f,	0.0f,	-1.0f, //J
-		0.35f,		0.2f,	0.4f,	0.0f,	0.8f,	1.0f,	0.0f,	-1.0f, //K1
-		0.35f,		0.0f,	0.4f,	0.1f,	0.8f,	1.0f,	0.0f,	-1.0f, //K
-		0.25f,		0.2f,	0.35f,	0.0f,	1.0f,	1.0f,	0.0f,	-1.0f, //L1
-		0.25f,		0.0f,	0.35f,	0.1f,	1.0f,	1.0f,	0.0f,	-1.0f, //L
-		0.0f,		0.2f,	0.35,	0.0f,	0.8f,	0.0f,	0.0f,	-1.0f, //A1
-		0.0f,		0.0f,	0.35,	0.1f,	0.8f,	0.0f,	0.0f,	-1.0f, //A
+		//S		T
+	   0.0f,		0.0f,	0.35,	0.0f,	0.8f,	1.0f,	0.0f,	1.0f, //A
+	   0.0f,		0.2f,	0.35,	0.1f,	0.8f,	1.0f,	0.0f,	1.0f, //A1
+	   0.0f,		0.2f,	0.15f,	0.0f,	1.0f,	1.0f,	0.0f,	1.0f, //B1
+	   0.0f,		0.0f,	0.15f,	0.1f,	1.0f,	1.0f,	0.0f,	1.0f, //B
+	   0.25,		0.2f,	0.15f,	0.0f,	0.8f,	1.0f,	0.0f,	1.0f, //C1
+	   0.25,		0.0f,	0.15f,	0.1f,	0.8f,	1.0f,	0.0f,	1.0f, //C
+	   0.35f,		0.2f,	0.1f,	0.0f,	1.0f,	1.0f,	0.0f,	1.0f, //D1
+	   0.35f,		0.0f,	0.1f,	0.1f,	1.0f,	1.0f,	0.0f,	1.0f, //D
+	   0.65f,		0.2f,	0.1f,	0.0f,	0.8f,	-1.0f,	0.0f,	1.0f, //E1
+	   0.65f,		0.0f,	0.1f,	0.1f,	0.8f,	-1.0f,	0.0f,	1.0f, //E
+	   0.75f,		0.2f,	0.15,	0.0f,	1.0f,	-1.0f,	0.0f,	1.0f, //F1
+	   0.75f,		0.0f,	0.15,	0.1f,	1.0f,	-1.0f,	0.0f,	1.0f, //F
+	   1.0,		0.2f,	0.15f,	0.0f,	0.8f,	-1.0f,	0.0f,	1.0f, //G1
+	   1.0,		0.0f,	0.15f,	0.1f,	0.8f,	-1.0f,	0.0f,	1.0f, //G
+	   1.0f,		0.2f,	0.35f,	0.0f,	1.0f,	-1.0f,	0.0f,	-1.0f, //H1
+	   1.0f,		0.0f,	0.35f,	0.1f,	1.0f,	-1.0f,	0.0f,	-1.0f, //H
+	   0.75f,		0.2f,	0.35f,	0.0f,	0.8f,	-1.0f,	0.0f,	-1.0f, //I1
+	   0.75f,		0.0f,	0.35f,	0.1f,	0.8f,	-1.0f,	0.0f,	-1.0f, //I
+	   0.65f,		0.2f,	0.4f,	0.0f,	1.0f,	-1.0f,	0.0f,	-1.0f, //J1
+	   0.65f,		0.0f,	0.4f,	0.1f,	1.0f,	-1.0f,	0.0f,	-1.0f, //J
+	   0.35f,		0.2f,	0.4f,	0.0f,	0.8f,	1.0f,	0.0f,	-1.0f, //K1
+	   0.35f,		0.0f,	0.4f,	0.1f,	0.8f,	1.0f,	0.0f,	-1.0f, //K
+	   0.25f,		0.2f,	0.35f,	0.0f,	1.0f,	1.0f,	0.0f,	-1.0f, //L1
+	   0.25f,		0.0f,	0.35f,	0.1f,	1.0f,	1.0f,	0.0f,	-1.0f, //L
+	   0.0f,		0.2f,	0.35,	0.0f,	0.8f,	0.0f,	0.0f,	-1.0f, //A1
+	   0.0f,		0.0f,	0.35,	0.1f,	0.8f,	0.0f,	0.0f,	-1.0f, //A
 
 	};
 
@@ -616,7 +616,7 @@ void CrearPrimitiva2()
 
 void CreateShaders()
 {
-	Shader *shader1 = new Shader();
+	Shader* shader1 = new Shader();
 	shader1->CreateFromFiles(vShader, fShader);
 	shaderList.push_back(*shader1);
 }
@@ -1236,14 +1236,14 @@ int main()
 	KeyFrame[37].rotaFlipper = 0.0;
 
 	GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformEyePosition = 0,
-		uniformSpecularIntensity = 0, uniformShininess = 0, uniformTextureOffset=0;
+		uniformSpecularIntensity = 0, uniformShininess = 0, uniformTextureOffset = 0;
 	GLuint uniformColor = 0;
 	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / mainWindow.getBufferHeight(), 0.1f, 1000.0f);
-	
+
 	glm::vec3 posicionFrijolito(1.0);
 	glm::vec3 posicionFrijolitoLux(1.0);
 	std::vector<float> coordsTexture;
-	
+
 	////Loop mientras no se cierra la ventana
 	while (!mainWindow.getShouldClose())
 	{
@@ -1253,6 +1253,7 @@ int main()
 		lastTime = now;
 
 		//Animacion de primitivas y modelos que comienzan cuando se ejecuta
+		//---------------------------------------------------------------------------------------------------------------------------------
 		if (akuTraslacion) {
 			rotaAku -= rotaAkuOffset * deltaTime;
 			if (mueveAku > -2) {
@@ -1271,7 +1272,7 @@ int main()
 				akuTraslacion = true;
 			}
 		}
-		
+
 		if (cinturonRotacion) {
 			rotaCinturon += rotaCinturonOffset * deltaTime;
 			if (rotaCinturon > 100) {
@@ -1371,13 +1372,37 @@ int main()
 				}
 
 				if (pegaParedFinal) {
-					if (mueveXCanica1 > -40) {
-						mueveCanica1 += (mueveCanica1Offset * 0.6) * deltaTime;
-						mueveXCanica1 -= mueveXCanica1Offset * deltaTime;
+					if (mainWindow.getFlipper3()) {
+						if (mueveXCanica1 > -27) {
+							mueveCanica1 += (mueveCanica1Offset * 0.4) * deltaTime;
+							mueveXCanica1 -= mueveXCanica1Offset * deltaTime;
+						}
+						else {
+							printf("Canica1: %f ", mueveCanica1); //-26.15
+							if (mueveXCanica1 > -35) {
+								mueveCanica1 -= (mueveCanica1Offset * 0.4) * deltaTime;
+								mueveXCanica1 -= mueveXCanica1Offset * deltaTime;
+							}
+							else {
+								if (mueveCanica1 < -5) { //29.4
+									mueveCanica1 += (mueveCanica1Offset) * deltaTime;
+								}
+								else {
+									pegaParedFinal = false;
+										derrota = true;
+								}
+							}
+						}
 					}
 					else {
-						pegaParedFinal = false;
-						derrota = true;
+						if (mueveXCanica1 > -40) {
+							mueveCanica1 += (mueveCanica1Offset * 0.6) * deltaTime;
+							mueveXCanica1 -= mueveXCanica1Offset * deltaTime;
+						}
+						else {
+							pegaParedFinal = false;
+							derrota = true;
+						}
 					}
 				}
 
@@ -1400,8 +1425,8 @@ int main()
 			inputKeyframes(mainWindow.getsKeys());
 			animate();
 		}
-		
 
+		//---------------------------------------------------------------------------------------------------------------------------------
 		//Recibir eventos del usuario
 		glfwPollEvents();
 		camera.keyControl(mainWindow.getsKeys(), deltaTime);
@@ -1411,7 +1436,7 @@ int main()
 		// Clear the window
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		
+
 		tiempoDiaNoche += 1.0f;
 		if (tiempoDiaNoche < (maxTiempo * 5)) {
 			skybox.DrawSkybox(camera.calculateViewMatrix(), projection);
@@ -1443,7 +1468,7 @@ int main()
 		else if (mainWindow.getAvatar()) {
 			glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix(posicionFrijolito)));
 		}*/
-		
+
 		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix()));
 
 		glUniform3f(uniformEyePosition, camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
@@ -1465,8 +1490,8 @@ int main()
 		spotLights[2].SetFlash(luzFlippers, glm::vec3(0.0f, -1.0f, -1.0f));
 		spotLights1[1].SetFlash(luzFlippers, glm::vec3(0.0f, -1.0f, -1.0f));
 		spotLights2[0].SetFlash(luzFlippers, glm::vec3(0.0f, -1.0f, -1.0f));
-		
-		if (tiempoDiaNoche < (maxTiempo*5)) {
+
+		if (tiempoDiaNoche < (maxTiempo * 5)) {
 			shaderList[0].SetDirectionalLight(&mainLight);
 		}
 		else if (tiempoDiaNoche >= (maxTiempo * 5) && tiempoDiaNoche < (maxTiempo * 10)) {
@@ -1566,7 +1591,7 @@ int main()
 		glm::mat4 modelaux(1.0);
 		glm::vec3 color = glm::vec3(1.0f, 1.0f, 1.0f);
 		glm::vec2 toffset = glm::vec2(0.0f, 0.0f);
-		
+
 		glUniform2fv(uniformTextureOffset, 1, glm::value_ptr(toffset));
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(0.0f, -2.0f, 0.0f));
@@ -1605,7 +1630,7 @@ int main()
 		// Canica 1
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(37.5f, 48.0f, 54.0f));
-		model = glm::rotate(model, 5 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));		
+		model = glm::rotate(model, 5 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
 		if (!iniciaAnimacionPrincipal) {
 			model = glm::translate(model, glm::vec3(0, 0, iniciaCanica));
 			model = glm::rotate(model, rotaCanicaInicio * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
@@ -1627,14 +1652,14 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		CanicaMetalica_M.RenderModel();
 
-		model = glm::mat4(1.0); 
+		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(26.0f, 49.0f, 31.0f));
 		model = glm::rotate(model, glm::radians(mainWindow.getFlipper3()), glm::vec3(0.0f, 1.0f, 0.0f));
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Flipper3_M.RenderModel(); //Abajo derecha
 
-		model = glm::mat4(1.0); 
+		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-17.0f, 57.0f, -30.0f));
 		model = glm::rotate(model, glm::radians(mainWindow.getFlipper2()) + (rotaFlipper * toRadians), glm::vec3(0.0f, 1.0f, 0.0f));
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
@@ -1669,7 +1694,7 @@ int main()
 		posicionFrijolito = model[3];
 
 		model = modelaux;
-		model = glm::translate(model, glm::vec3(0.2f ,0.05f, -0.35f));
+		model = glm::translate(model, glm::vec3(0.2f, 0.05f, -0.35f));
 		model = glm::rotate(model, glm::radians(mainWindow.getRotaBrazoIzquierdo()), glm::vec3(0.0f, 0.0f, 1.0f));
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -1706,14 +1731,14 @@ int main()
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		SamuraiJackConejito_M.RenderModel();
-		
+
 		model = glm::translate(model, glm::vec3(0.4f, -0.1f, 1.3f));
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		SamuraiJackAntebrazo_M.RenderModel();
 
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(3.0f, 52.0f, 18.0));
+		model = glm::translate(model, glm::vec3(-2.0f, 52.0f, 18.0));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Ring_M.RenderModel();
 
@@ -1836,10 +1861,10 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		cinturonTexture.UseTexture();
 		meshList[8]->RenderMesh(); //Abajo	
-		
+
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		
+
 		if (cambiaNumeroVisibleOffset > 100.0) {
 			cambiaNumeroVisibleOffset = 0.0;
 			punt0 += 1;
@@ -1851,10 +1876,10 @@ int main()
 		if (punt0 > 9) {
 			punt1 += 1;
 			punt0 = 0;
-		}		
+		}
 
 		coordsTexture = getCoordsTexture(punt0);
-			
+
 		/* 0.00 -> 1,2,3,4
 		 0.33 -> 9,0,simbolos
 		 0.66 -> 5,6,7,8*/
@@ -1874,7 +1899,7 @@ int main()
 		if (punt1 > 9) {
 			punt1 = 0;
 			punt2 += 1;
-		}			
+		}
 
 		coordsTexture = getCoordsTexture(punt1);
 		toffset = glm::vec2(coordsTexture[0], coordsTexture[1]);
