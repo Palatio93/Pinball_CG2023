@@ -1346,9 +1346,6 @@ int main()
 			}
 		}
 
-
-
-
 		//Animaciones de canica
 		//---------------------------------------------------------------------------------------------------------------------------------------
 		if (mainWindow.getAlternaAnimacion()) {
@@ -1426,13 +1423,12 @@ int main()
 							mueveXCanica1 -= mueveXCanica1Offset * deltaTime;
 						}
 						else {
-							printf("Canica1: %f ", mueveCanica1); //-26.15
 							if (mueveXCanica1 > -35) {
 								mueveCanica1 -= (mueveCanica1Offset * 0.4) * deltaTime;
 								mueveXCanica1 -= mueveXCanica1Offset * deltaTime;
 							}
 							else {
-								if (mueveCanica1 < -5) { //29.4
+								if (mueveCanica1 < -5) {
 									mueveCanica1 += (mueveCanica1Offset) * deltaTime;
 								}
 								else {
@@ -1463,7 +1459,6 @@ int main()
 						mueveXCanica1 = 0;
 						iniciaAnimacionPrincipal = false;
 						derrota = false;
-						//subeCanica = false;
 					}
 				}
 			}
@@ -1516,7 +1511,6 @@ int main()
 		else if (mainWindow.getAvatar()) {
 			glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix(posicionFrijolito)));
 		}
-
 
 		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix()));
 
@@ -2104,7 +2098,6 @@ int main()
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		//PinballCristal_M.RenderModel();
-
 
 		glDisable(GL_BLEND);
 
