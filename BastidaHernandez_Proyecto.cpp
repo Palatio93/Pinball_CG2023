@@ -64,7 +64,11 @@ float mueveAku = 60.0f, mueveAkuOffset = 0.1f;
 float rotaAku = 0.0f, rotaAkuOffset = 2.0f;
 float mueveCinturon = 30.0f, mueveCinturonOffset = 0.15f;
 float rotaCinturon = 0.0f, rotaCinturonOffset = 10.0f;
+float rotaAntebrazoSamurai = 100.0f, rotaAntebrazoSamuraiOffset = 2.0f;
+float rotaConejitoSamurai = 100.0f, rotaConejitoSamuraiOffset = 2.0f;
+float mueveSamurai = 0.0f, mueveSamuraiOffset = 0.2f;
 bool akuTraslacion = true, cinturonTraslacion = true, cinturonRotacion = true;
+bool antebrazoRotacion = true, conejitoRotacion = true, samuraiTraslacion = true;
 bool iniciaAnimacionPrincipal = false, canicaEnJuego = false;
 bool liberaResorte = false;
 
@@ -1303,6 +1307,50 @@ int main()
 			}
 		}
 
+		if (antebrazoRotacion) {
+			rotaAntebrazoSamurai += rotaAntebrazoSamuraiOffset * deltaTime;
+			if (rotaAntebrazoSamurai > 80) {
+				antebrazoRotacion = false;
+			}
+		}
+		else {
+			rotaAntebrazoSamurai -= rotaAntebrazoSamuraiOffset * deltaTime;
+			if (rotaAntebrazoSamurai < -80) {
+				antebrazoRotacion = true;
+			}
+		}
+
+		if (conejitoRotacion) {
+			rotaConejitoSamurai += rotaConejitoSamuraiOffset * deltaTime;
+			if (rotaConejitoSamurai > 45) {
+				conejitoRotacion = false;
+			}
+		}
+		else {
+			rotaConejitoSamurai -= rotaConejitoSamuraiOffset * deltaTime;
+			if (rotaConejitoSamurai < -45) {
+				conejitoRotacion = true;
+			}
+		}
+
+		if (samuraiTraslacion) {
+			mueveSamurai += mueveSamuraiOffset * deltaTime;
+			if (mueveSamurai > 10) {
+				samuraiTraslacion = false;
+			}
+		}
+		else {
+			mueveSamurai -= mueveSamuraiOffset * deltaTime;
+			if (mueveSamurai < -10) {
+				samuraiTraslacion = true;
+			}
+		}
+
+
+
+
+		//Animaciones de canica
+		//---------------------------------------------------------------------------------------------------------------------------------------
 		if (mainWindow.getAlternaAnimacion()) {
 			if (mainWindow.getMouseDerecho()) {
 				if (retraeResorte > 0.25) {
@@ -1722,17 +1770,19 @@ int main()
 		FrijolitoPiernaDer_M.RenderModel();
 
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-26.0f, 50.0f, 11.0f));
+		model = glm::translate(model, glm::vec3(-26.0f + mueveSamurai, 50.0f, 11.0f));
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		SamuraiJackCuerpo_M.RenderModel();
 
 		model = glm::translate(model, glm::vec3(1.05f, 7.9f, 1.35f));
+		model = glm::rotate(model, rotaAntebrazoSamurai * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		SamuraiJackConejito_M.RenderModel();
 
 		model = glm::translate(model, glm::vec3(0.4f, -0.1f, 1.3f));
+		model = glm::rotate(model, rotaAntebrazoSamurai * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		SamuraiJackAntebrazo_M.RenderModel();
