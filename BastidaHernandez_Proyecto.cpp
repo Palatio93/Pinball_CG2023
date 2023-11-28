@@ -2,7 +2,7 @@
 Semestre 2024-1
 Proyecto Final de
 	Karen Mariel Bastida Vargas
-	Humberto Ignacio Hern醤dez Olvera
+	Humberto Ignacio Hern谩ndez Olvera
 */
 //para cargar imagen
 #define STB_IMAGE_IMPLEMENTATION
@@ -33,7 +33,7 @@ Proyecto Final de
 #include"Model.h"
 #include "Skybox.h"
 
-//para iluminaci髇
+//para iluminaci贸n
 #include "CommonValues.h"
 #include "DirectionalLight.h"
 #include "PointLight.h"
@@ -240,7 +240,7 @@ std::vector<float> getCoordsTexture(int numeroRenderizar) {
 	return temp; // (toffsetnumerocambiau, toffsetnumerov)
 }
 
-//c醠culo del promedio de las normales para sombreado de Phong
+//c谩lculo del promedio de las normales para sombreado de Phong
 void calcAverageNormals(unsigned int* indices, unsigned int indiceCount, GLfloat* vertices, unsigned int verticeCount,
 	unsigned int vLength, unsigned int normalOffset)
 {
@@ -711,18 +711,18 @@ void animate(void)
 	//Movimiento del objeto con barra espaciadora
 	if (play)
 	{
-		if (i_curr_steps >= i_max_steps) //fin de animaci髇 entre frames?
+		if (i_curr_steps >= i_max_steps) //fin de animaci贸n entre frames?
 		{
 			playIndex++;
 			printf("playindex : %d\n", playIndex);
-			if (playIndex > FrameIndex - 2)	//Fin de toda la animaci髇 con 鷏timo frame?
+			if (playIndex > FrameIndex - 2)	//Fin de toda la animaci贸n con 煤ltimo frame?
 			{
 				printf("Frame index= %d\n", FrameIndex);
 				printf("termino la animacion\n");
 				playIndex = 0;
 				play = false;
 			}
-			else //Interpolaci髇 del pr髕imo cuadro
+			else //Interpolaci贸n del pr贸ximo cuadro
 			{
 
 				i_curr_steps = 0; //Resetea contador
@@ -732,7 +732,7 @@ void animate(void)
 		}
 		else
 		{
-			//Dibujar Animaci髇
+			//Dibujar Animaci贸n
 			movCanica_x += KeyFrame[playIndex].movCanica_xInc;
 			movCanica_z += KeyFrame[playIndex].movCanica_zInc;
 			rotaPulga += KeyFrame[playIndex].rotaPulga_inc;
@@ -869,7 +869,7 @@ int main()
 	Material_brillante = Material(4.0f, 256);
 	Material_opaco = Material(0.3f, 4);
 
-	//luz direccional, s髄o 1 y siempre debe de existir
+	//luz direccional, s贸lo 1 y siempre debe de existir
 	mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
 		0.3f, 0.3f,
 		0.0f, -1.0f, 0.0f);
@@ -1501,13 +1501,13 @@ int main()
 		uniformColor = shaderList[0].getColorLocation();
 		uniformTextureOffset = shaderList[0].getOffsetLocation();
 
-		//informaci髇 en el shader de intensidad especular y brillo
+		//informaci贸n en el shader de intensidad especular y brillo
 		uniformSpecularIntensity = shaderList[0].GetSpecularIntensityLocation();
 		uniformShininess = shaderList[0].GetShininessLocation();
 
 		glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
 		// Cambio de camara
-		/*if (mainWindow.getTopDown()) {
+		if (mainWindow.getTopDown()) {
 			glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix(glm::vec3(-10.0f, 150.0f, -6.0f))));
 		}
 		else if (mainWindow.getJugador()) {
@@ -1515,7 +1515,8 @@ int main()
 		}
 		else if (mainWindow.getAvatar()) {
 			glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix(posicionFrijolito)));
-		}*/
+		}
+
 
 		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix()));
 
