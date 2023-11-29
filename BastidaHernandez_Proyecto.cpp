@@ -21,6 +21,7 @@ Proyecto Final de
 #include <glm.hpp>
 #include <gtc\matrix_transform.hpp>
 #include <gtc\type_ptr.hpp>
+#include <iostream>
 //para probar el importer
 //#include<assimp/Importer.hpp>
 
@@ -39,6 +40,12 @@ Proyecto Final de
 #include "PointLight.h"
 #include "SpotLight.h"
 #include "Material.h"
+
+//AUDIO-------------------------------------------------------------
+#include <irrKlang.h>
+using namespace irrklang;
+#pragma comment(lib, "irrKlang.lib") // link with irrKlang.dll
+
 const float toRadians = 3.14159265f / 180.0f;
 
 float toffsetflechau = 0.0f;
@@ -733,7 +740,7 @@ void animate(void)
 			}
 		}
 		else
-		{
+
 			//Dibujar Animación
 			movCanica_x += KeyFrame[playIndex].movCanica_xInc;
 			movCanica_z += KeyFrame[playIndex].movCanica_zInc;
@@ -759,6 +766,28 @@ int main()
 	CreateShaders();
 	CrearPrimitiva1();
 	CrearPrimitiva2();
+
+
+	//AUDIO-----------------------------------------
+	// start the sound engine with default parameters
+	ISoundEngine* engine = createIrrKlangDevice(); //music1
+	//ISoundEngine* engine2 = createIrrKlangDevice(); //music2
+	//ISoundEngine* engine3 = createIrrKlangDevice(); //espacial
+
+	/*ISound* music1 = engine->play3D("muchalucha.wav",
+		vec3df(19.0f, 55.0f, -18.0f), true, false, true);*/
+
+	/*ISound* music2 = engine2->play3D("samurai.wav",
+		vec3df(7.0f, 55.0f, -6.0f), true, false, true);
+		*/
+	/*engine->play2D("crowd.wav", true);*/
+	ISound* sound = engine->play2D("muchalucha.wav", true, false, true);
+	sound->setVolume(0.5f);
+
+
+
+	if (!engine)
+		return 0; // error starting up the engine
 
 	//camera = Camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, -45.0f, 0.5f, 0.5f); // la de jugador
 	camera = Camera(glm::vec3(0.0f, 150.0f, 90.0f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, -45.0f, 0.5f, 0.5f); // la de jugador
@@ -1252,6 +1281,9 @@ int main()
 	glm::vec3 posicionFrijolitoLux(1.0);
 	std::vector<float> coordsTexture;
 
+	//AUDIO----------------------------------------------------------
+	//engine->setListenerPosition(vec3df(camera.getCameraPositionX(), camera.getCameraPositionY(), camera.getCameraPositionZ()), vec3df(0.0f, 0.0f, 1.0f));
+
 	////Loop mientras no se cierra la ventana
 	while (!mainWindow.getShouldClose())
 	{
@@ -1259,6 +1291,7 @@ int main()
 		deltaTime = now - lastTime;
 		deltaTime += (now - lastTime) / limitFPS;
 		lastTime = now;
+		
 
 		//Animacion de primitivas y modelos que comienzan cuando se ejecuta
 		//---------------------------------------------------------------------------------------------------------------------------------
@@ -1427,11 +1460,14 @@ int main()
 							mueveXCanica1 -= mueveXCanica1Offset * deltaTime;
 						}
 						else {
+							printf("Canica1: %f ", mueveCanica1); //-26.15
 							if (mueveXCanica1 > -35) {
 								mueveCanica1 -= (mueveCanica1Offset * 0.4) * deltaTime;
 								mueveXCanica1 -= mueveXCanica1Offset * deltaTime;
 							}
 							else {
+
+								if (mueveCanica1 < -5) { //29.4
 								if (mueveCanica1 < -5) {
 									mueveCanica1 += (mueveCanica1Offset) * deltaTime;
 								}
@@ -1664,6 +1700,7 @@ int main()
 
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(37.0f, 46.0f, 86.0f + muevePalanca + desplazaPalanca));
+
 		Material_entreazulymediasnoches.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -1772,20 +1809,26 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-26.0f + mueveSamurai, 50.0f, 11.0f));
 		Material_entreazulymediasnoches.UseMaterial(uniformSpecularIntensity, uniformShininess);
+
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		SamuraiJackCuerpo_M.RenderModel();
 
 		model = glm::translate(model, glm::vec3(1.05f, 7.9f, 1.35f));
-		model = glm::rotate(model, rotaAntebrazoSamurai * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+
+
 		Material_entreazulymediasnoches.UseMaterial(uniformSpecularIntensity, uniformShininess);
+
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		SamuraiJackConejito_M.RenderModel();
 
 		model = glm::translate(model, glm::vec3(0.4f, -0.1f, 1.3f));
 		model = glm::rotate(model, rotaAntebrazoSamurai * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+
+
 		Material_entreazulymediasnoches.UseMaterial(uniformSpecularIntensity, uniformShininess);
+
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		SamuraiJackAntebrazo_M.RenderModel();
@@ -2113,7 +2156,9 @@ int main()
 
 		mainWindow.swapBuffers();
 	}
-
+	engine->drop(); // delete engine
+	/*if (music2)
+		music2->drop();*/
 	return 0;
 }
 
