@@ -159,6 +159,8 @@ Skybox skyboxNoche;
 //materiales
 Material Material_brillante;
 Material Material_opaco;
+Material Material_entreazulymediasnoches;
+Material Material_verdesito;
 
 //Sphere cabeza = Sphere(0.5, 20, 20);
 GLfloat deltaTime = 0.0f;
@@ -868,6 +870,8 @@ int main()
 
 	Material_brillante = Material(4.0f, 256);
 	Material_opaco = Material(0.3f, 4);
+	Material_entreazulymediasnoches = Material(2.0, 150);
+	Material_verdesito = Material(1.0, 50);
 
 	//luz direccional, sólo 1 y siempre debe de existir
 	mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
@@ -1660,6 +1664,7 @@ int main()
 
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(37.0f, 46.0f, 86.0f + muevePalanca + desplazaPalanca));
+		Material_entreazulymediasnoches.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Palanca_M.RenderModel();
@@ -1730,7 +1735,7 @@ int main()
 		model = glm::translate(model, glm::vec3(mainWindow.getTrasladaXFrijolito(), 0.0f, 0.0 + mainWindow.getTrasladaZFrijolito()));
 		posicionFrijolitoLux = model[3];
 		modelaux = model;
-		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		Material_verdesito.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		FrijolitoCuerpo_M.RenderModel();
 		model = glm::translate(model, glm::vec3(-5.0, 5.0f, 0.0f));
@@ -1739,45 +1744,48 @@ int main()
 		model = modelaux;
 		model = glm::translate(model, glm::vec3(0.2f, 0.05f, -0.35f));
 		model = glm::rotate(model, glm::radians(mainWindow.getRotaBrazoIzquierdo()), glm::vec3(0.0f, 0.0f, 1.0f));
-		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		Material_verdesito.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		FrijolitoBrazoIzq_M.RenderModel();
 
 		model = modelaux;
 		model = glm::translate(model, glm::vec3(0.2f, 0.15f, 0.35f));
 		model = glm::rotate(model, glm::radians(mainWindow.getRotaBrazoDerecho()), glm::vec3(0.0f, 0.0f, 1.0f));
-		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		Material_verdesito.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		FrijolitoBrazoDer_M.RenderModel();
 
 		model = modelaux;
 		model = glm::translate(model, glm::vec3(0.05f, -0.4f, -0.2f));
 		model = glm::rotate(model, glm::radians(mainWindow.getRotaPiernaIzquierda()), glm::vec3(0.0f, 0.0f, 1.0f));
-		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		Material_verdesito.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		FrijolitoPiernaIzq_M.RenderModel();
 
 		model = modelaux;
 		model = glm::translate(model, glm::vec3(0.05f, -0.4f, 0.2f));
 		model = glm::rotate(model, glm::radians(mainWindow.getRotaPiernaDerecha()), glm::vec3(0.0f, 0.0f, 1.0f));
-		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		Material_verdesito.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		FrijolitoPiernaDer_M.RenderModel();
 
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-26.0f + mueveSamurai, 50.0f, 11.0f));
+		Material_entreazulymediasnoches.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		SamuraiJackCuerpo_M.RenderModel();
 
 		model = glm::translate(model, glm::vec3(1.05f, 7.9f, 1.35f));
 		model = glm::rotate(model, rotaAntebrazoSamurai * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		Material_entreazulymediasnoches.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		SamuraiJackConejito_M.RenderModel();
 
 		model = glm::translate(model, glm::vec3(0.4f, -0.1f, 1.3f));
 		model = glm::rotate(model, rotaAntebrazoSamurai * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		Material_entreazulymediasnoches.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		SamuraiJackAntebrazo_M.RenderModel();
