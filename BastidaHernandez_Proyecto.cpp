@@ -1665,6 +1665,7 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(37.0f, 46.0f, 86.0f + muevePalanca + desplazaPalanca));
 		Material_entreazulymediasnoches.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Palanca_M.RenderModel();
 
@@ -1771,18 +1772,21 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-26.0f + mueveSamurai, 50.0f, 11.0f));
 		Material_entreazulymediasnoches.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		SamuraiJackCuerpo_M.RenderModel();
 
 		model = glm::translate(model, glm::vec3(1.05f, 7.9f, 1.35f));
 		model = glm::rotate(model, rotaAntebrazoSamurai * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		Material_entreazulymediasnoches.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		SamuraiJackConejito_M.RenderModel();
 
 		model = glm::translate(model, glm::vec3(0.4f, -0.1f, 1.3f));
 		model = glm::rotate(model, rotaAntebrazoSamurai * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
 		Material_entreazulymediasnoches.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		SamuraiJackAntebrazo_M.RenderModel();
 
