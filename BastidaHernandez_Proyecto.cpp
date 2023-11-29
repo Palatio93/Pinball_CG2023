@@ -2,7 +2,7 @@
 Semestre 2024-1
 Proyecto Final de
 	Karen Mariel Bastida Vargas
-	Humberto Ignacio Hern醤dez Olvera
+	Humberto Ignacio Hern谩ndez Olvera
 */
 //para cargar imagen
 #define STB_IMAGE_IMPLEMENTATION
@@ -34,7 +34,7 @@ Proyecto Final de
 #include"Model.h"
 #include "Skybox.h"
 
-//para iluminaci髇
+//para iluminaci贸n
 #include "CommonValues.h"
 #include "DirectionalLight.h"
 #include "PointLight.h"
@@ -166,6 +166,8 @@ Skybox skyboxNoche;
 //materiales
 Material Material_brillante;
 Material Material_opaco;
+Material Material_entreazulymediasnoches;
+Material Material_verdesito;
 
 //Sphere cabeza = Sphere(0.5, 20, 20);
 GLfloat deltaTime = 0.0f;
@@ -247,7 +249,7 @@ std::vector<float> getCoordsTexture(int numeroRenderizar) {
 	return temp; // (toffsetnumerocambiau, toffsetnumerov)
 }
 
-//c醠culo del promedio de las normales para sombreado de Phong
+//c谩lculo del promedio de las normales para sombreado de Phong
 void calcAverageNormals(unsigned int* indices, unsigned int indiceCount, GLfloat* vertices, unsigned int verticeCount,
 	unsigned int vLength, unsigned int normalOffset)
 {
@@ -718,18 +720,18 @@ void animate(void)
 	//Movimiento del objeto con barra espaciadora
 	if (play)
 	{
-		if (i_curr_steps >= i_max_steps) //fin de animaci髇 entre frames?
+		if (i_curr_steps >= i_max_steps) //fin de animaci贸n entre frames?
 		{
 			playIndex++;
 			printf("playindex : %d\n", playIndex);
-			if (playIndex > FrameIndex - 2)	//Fin de toda la animaci髇 con 鷏timo frame?
+			if (playIndex > FrameIndex - 2)	//Fin de toda la animaci贸n con 煤ltimo frame?
 			{
 				printf("Frame index= %d\n", FrameIndex);
 				printf("termino la animacion\n");
 				playIndex = 0;
 				play = false;
 			}
-			else //Interpolaci髇 del pr髕imo cuadro
+			else //Interpolaci贸n del pr贸ximo cuadro
 			{
 
 				i_curr_steps = 0; //Resetea contador
@@ -738,8 +740,8 @@ void animate(void)
 			}
 		}
 		else
-		{
-			//Dibujar Animaci髇
+
+			//Dibujar Animaci贸n
 			movCanica_x += KeyFrame[playIndex].movCanica_xInc;
 			movCanica_z += KeyFrame[playIndex].movCanica_zInc;
 			rotaPulga += KeyFrame[playIndex].rotaPulga_inc;
@@ -897,8 +899,10 @@ int main()
 
 	Material_brillante = Material(4.0f, 256);
 	Material_opaco = Material(0.3f, 4);
+	Material_entreazulymediasnoches = Material(2.0, 150);
+	Material_verdesito = Material(1.0, 50);
 
-	//luz direccional, s髄o 1 y siempre debe de existir
+	//luz direccional, s贸lo 1 y siempre debe de existir
 	mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
 		0.3f, 0.3f,
 		0.0f, -1.0f, 0.0f);
@@ -1379,9 +1383,6 @@ int main()
 			}
 		}
 
-
-
-
 		//Animaciones de canica
 		//---------------------------------------------------------------------------------------------------------------------------------------
 		if (mainWindow.getAlternaAnimacion()) {
@@ -1465,7 +1466,9 @@ int main()
 								mueveXCanica1 -= mueveXCanica1Offset * deltaTime;
 							}
 							else {
+
 								if (mueveCanica1 < -5) { //29.4
+								if (mueveCanica1 < -5) {
 									mueveCanica1 += (mueveCanica1Offset) * deltaTime;
 								}
 								else {
@@ -1496,7 +1499,6 @@ int main()
 						mueveXCanica1 = 0;
 						iniciaAnimacionPrincipal = false;
 						derrota = false;
-						//subeCanica = false;
 					}
 				}
 			}
@@ -1534,7 +1536,7 @@ int main()
 		uniformColor = shaderList[0].getColorLocation();
 		uniformTextureOffset = shaderList[0].getOffsetLocation();
 
-		//informaci髇 en el shader de intensidad especular y brillo
+		//informaci贸n en el shader de intensidad especular y brillo
 		uniformSpecularIntensity = shaderList[0].GetSpecularIntensityLocation();
 		uniformShininess = shaderList[0].GetShininessLocation();
 
@@ -1698,6 +1700,8 @@ int main()
 
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(37.0f, 46.0f, 86.0f + muevePalanca + desplazaPalanca));
+
+		Material_entreazulymediasnoches.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Palanca_M.RenderModel();
@@ -1768,7 +1772,7 @@ int main()
 		model = glm::translate(model, glm::vec3(mainWindow.getTrasladaXFrijolito(), 0.0f, 0.0 + mainWindow.getTrasladaZFrijolito()));
 		posicionFrijolitoLux = model[3];
 		modelaux = model;
-		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		Material_verdesito.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		FrijolitoCuerpo_M.RenderModel();
 		model = glm::translate(model, glm::vec3(-5.0, 5.0f, 0.0f));
@@ -1777,45 +1781,54 @@ int main()
 		model = modelaux;
 		model = glm::translate(model, glm::vec3(0.2f, 0.05f, -0.35f));
 		model = glm::rotate(model, glm::radians(mainWindow.getRotaBrazoIzquierdo()), glm::vec3(0.0f, 0.0f, 1.0f));
-		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		Material_verdesito.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		FrijolitoBrazoIzq_M.RenderModel();
 
 		model = modelaux;
 		model = glm::translate(model, glm::vec3(0.2f, 0.15f, 0.35f));
 		model = glm::rotate(model, glm::radians(mainWindow.getRotaBrazoDerecho()), glm::vec3(0.0f, 0.0f, 1.0f));
-		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		Material_verdesito.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		FrijolitoBrazoDer_M.RenderModel();
 
 		model = modelaux;
 		model = glm::translate(model, glm::vec3(0.05f, -0.4f, -0.2f));
 		model = glm::rotate(model, glm::radians(mainWindow.getRotaPiernaIzquierda()), glm::vec3(0.0f, 0.0f, 1.0f));
-		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		Material_verdesito.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		FrijolitoPiernaIzq_M.RenderModel();
 
 		model = modelaux;
 		model = glm::translate(model, glm::vec3(0.05f, -0.4f, 0.2f));
 		model = glm::rotate(model, glm::radians(mainWindow.getRotaPiernaDerecha()), glm::vec3(0.0f, 0.0f, 1.0f));
-		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		Material_verdesito.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		FrijolitoPiernaDer_M.RenderModel();
 
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-26.0f + mueveSamurai, 50.0f, 11.0f));
+		Material_entreazulymediasnoches.UseMaterial(uniformSpecularIntensity, uniformShininess);
+
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		SamuraiJackCuerpo_M.RenderModel();
 
 		model = glm::translate(model, glm::vec3(1.05f, 7.9f, 1.35f));
-		model = glm::rotate(model, rotaAntebrazoSamurai * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+
+
+		Material_entreazulymediasnoches.UseMaterial(uniformSpecularIntensity, uniformShininess);
+
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		SamuraiJackConejito_M.RenderModel();
 
 		model = glm::translate(model, glm::vec3(0.4f, -0.1f, 1.3f));
 		model = glm::rotate(model, rotaAntebrazoSamurai * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+
+
+		Material_entreazulymediasnoches.UseMaterial(uniformSpecularIntensity, uniformShininess);
+
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		SamuraiJackAntebrazo_M.RenderModel();
@@ -2136,7 +2149,6 @@ int main()
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		//PinballCristal_M.RenderModel();
-
 
 		glDisable(GL_BLEND);
 
