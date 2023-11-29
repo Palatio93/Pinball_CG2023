@@ -1,8 +1,8 @@
 /*
 Semestre 2024-1
-Proyecto Final de 
+Proyecto Final de
 	Karen Mariel Bastida Vargas
-	Humberto Ignacio Hern醤dez Olvera
+	Humberto Ignacio Hern谩ndez Olvera
 */
 //para cargar imagen
 #define STB_IMAGE_IMPLEMENTATION
@@ -33,7 +33,7 @@ Proyecto Final de
 #include"Model.h"
 #include "Skybox.h"
 
-//para iluminaci髇
+//para iluminaci贸n
 #include "CommonValues.h"
 #include "DirectionalLight.h"
 #include "PointLight.h"
@@ -53,7 +53,7 @@ bool cambiaNumeroDecenas = false;
 float cambiaNumeroOffset = 0.0f;
 
 // ANIMACION DE DIA Y NOCHE
-float tiempoDiaNoche = 0.0f, maxTiempo=150;
+float tiempoDiaNoche = 0.0f, maxTiempo = 150;
 
 // ANIMACION DE INICIO
 float retraeResorte = 1.0f, retraeResorteOffset = 0.05f;
@@ -64,7 +64,11 @@ float mueveAku = 60.0f, mueveAkuOffset = 0.1f;
 float rotaAku = 0.0f, rotaAkuOffset = 2.0f;
 float mueveCinturon = 30.0f, mueveCinturonOffset = 0.15f;
 float rotaCinturon = 0.0f, rotaCinturonOffset = 10.0f;
+float rotaAntebrazoSamurai = 100.0f, rotaAntebrazoSamuraiOffset = 2.0f;
+float rotaConejitoSamurai = 100.0f, rotaConejitoSamuraiOffset = 2.0f;
+float mueveSamurai = 0.0f, mueveSamuraiOffset = 0.2f;
 bool akuTraslacion = true, cinturonTraslacion = true, cinturonRotacion = true;
+bool antebrazoRotacion = true, conejitoRotacion = true, samuraiTraslacion = true;
 bool iniciaAnimacionPrincipal = false, canicaEnJuego = false;
 bool liberaResorte = false;
 
@@ -155,6 +159,8 @@ Skybox skyboxNoche;
 //materiales
 Material Material_brillante;
 Material Material_opaco;
+Material Material_entreazulymediasnoches;
+Material Material_verdesito;
 
 //Sphere cabeza = Sphere(0.5, 20, 20);
 GLfloat deltaTime = 0.0f;
@@ -236,7 +242,7 @@ std::vector<float> getCoordsTexture(int numeroRenderizar) {
 	return temp; // (toffsetnumerocambiau, toffsetnumerov)
 }
 
-//c醠culo del promedio de las normales para sombreado de Phong
+//c谩lculo del promedio de las normales para sombreado de Phong
 void calcAverageNormals(unsigned int* indices, unsigned int indiceCount, GLfloat* vertices, unsigned int verticeCount,
 	unsigned int vLength, unsigned int normalOffset)
 {
@@ -313,7 +319,7 @@ void CreateObjects()
 
 
 	};
-	
+
 
 	unsigned int flechaIndices[] = {
 	   0, 1, 2,
@@ -354,15 +360,15 @@ void CreateObjects()
 
 	};
 
-	Mesh *obj1 = new Mesh();
+	Mesh* obj1 = new Mesh();
 	obj1->CreateMesh(vertices, indices, 32, 12);
 	meshList.push_back(obj1);
 
-	Mesh *obj2 = new Mesh();
+	Mesh* obj2 = new Mesh();
 	obj2->CreateMesh(vertices, indices, 32, 12);
 	meshList.push_back(obj2);
 
-	Mesh *obj3 = new Mesh();
+	Mesh* obj3 = new Mesh();
 	obj3->CreateMesh(floorVertices, floorIndices, 32, 6);
 	meshList.push_back(obj3);
 
@@ -578,33 +584,33 @@ void CrearPrimitiva2()
 		0.75f,		0.2f,	0.35f,	0.25f,	0.7f,	0.0f,	-1.0f,	0.0f, //I1
 		1.0,		0.2f,	0.15f,	0.0f,	0.3f,	0.0f,	-1.0f,	0.0f, //G1
 		1.0f,		0.2f,	0.35f,	0.0f,	0.7f,	0.0f,	-1.0f,	0.0f, //H1
-		 //S		T
-		0.0f,		0.0f,	0.35,	0.0f,	0.8f,	1.0f,	0.0f,	1.0f, //A
-		0.0f,		0.2f,	0.35,	0.1f,	0.8f,	1.0f,	0.0f,	1.0f, //A1
-		0.0f,		0.2f,	0.15f,	0.0f,	1.0f,	1.0f,	0.0f,	1.0f, //B1
-		0.0f,		0.0f,	0.15f,	0.1f,	1.0f,	1.0f,	0.0f,	1.0f, //B
-		0.25,		0.2f,	0.15f,	0.0f,	0.8f,	1.0f,	0.0f,	1.0f, //C1
-		0.25,		0.0f,	0.15f,	0.1f,	0.8f,	1.0f,	0.0f,	1.0f, //C
-		0.35f,		0.2f,	0.1f,	0.0f,	1.0f,	1.0f,	0.0f,	1.0f, //D1
-		0.35f,		0.0f,	0.1f,	0.1f,	1.0f,	1.0f,	0.0f,	1.0f, //D
-		0.65f,		0.2f,	0.1f,	0.0f,	0.8f,	-1.0f,	0.0f,	1.0f, //E1
-		0.65f,		0.0f,	0.1f,	0.1f,	0.8f,	-1.0f,	0.0f,	1.0f, //E
-		0.75f,		0.2f,	0.15,	0.0f,	1.0f,	-1.0f,	0.0f,	1.0f, //F1
-		0.75f,		0.0f,	0.15,	0.1f,	1.0f,	-1.0f,	0.0f,	1.0f, //F
-		1.0,		0.2f,	0.15f,	0.0f,	0.8f,	-1.0f,	0.0f,	1.0f, //G1
-		1.0,		0.0f,	0.15f,	0.1f,	0.8f,	-1.0f,	0.0f,	1.0f, //G
-		1.0f,		0.2f,	0.35f,	0.0f,	1.0f,	-1.0f,	0.0f,	-1.0f, //H1
-		1.0f,		0.0f,	0.35f,	0.1f,	1.0f,	-1.0f,	0.0f,	-1.0f, //H
-		0.75f,		0.2f,	0.35f,	0.0f,	0.8f,	-1.0f,	0.0f,	-1.0f, //I1
-		0.75f,		0.0f,	0.35f,	0.1f,	0.8f,	-1.0f,	0.0f,	-1.0f, //I
-		0.65f,		0.2f,	0.4f,	0.0f,	1.0f,	-1.0f,	0.0f,	-1.0f, //J1
-		0.65f,		0.0f,	0.4f,	0.1f,	1.0f,	-1.0f,	0.0f,	-1.0f, //J
-		0.35f,		0.2f,	0.4f,	0.0f,	0.8f,	1.0f,	0.0f,	-1.0f, //K1
-		0.35f,		0.0f,	0.4f,	0.1f,	0.8f,	1.0f,	0.0f,	-1.0f, //K
-		0.25f,		0.2f,	0.35f,	0.0f,	1.0f,	1.0f,	0.0f,	-1.0f, //L1
-		0.25f,		0.0f,	0.35f,	0.1f,	1.0f,	1.0f,	0.0f,	-1.0f, //L
-		0.0f,		0.2f,	0.35,	0.0f,	0.8f,	0.0f,	0.0f,	-1.0f, //A1
-		0.0f,		0.0f,	0.35,	0.1f,	0.8f,	0.0f,	0.0f,	-1.0f, //A
+		//S		T
+	   0.0f,		0.0f,	0.35,	0.0f,	0.8f,	1.0f,	0.0f,	1.0f, //A
+	   0.0f,		0.2f,	0.35,	0.1f,	0.8f,	1.0f,	0.0f,	1.0f, //A1
+	   0.0f,		0.2f,	0.15f,	0.0f,	1.0f,	1.0f,	0.0f,	1.0f, //B1
+	   0.0f,		0.0f,	0.15f,	0.1f,	1.0f,	1.0f,	0.0f,	1.0f, //B
+	   0.25,		0.2f,	0.15f,	0.0f,	0.8f,	1.0f,	0.0f,	1.0f, //C1
+	   0.25,		0.0f,	0.15f,	0.1f,	0.8f,	1.0f,	0.0f,	1.0f, //C
+	   0.35f,		0.2f,	0.1f,	0.0f,	1.0f,	1.0f,	0.0f,	1.0f, //D1
+	   0.35f,		0.0f,	0.1f,	0.1f,	1.0f,	1.0f,	0.0f,	1.0f, //D
+	   0.65f,		0.2f,	0.1f,	0.0f,	0.8f,	-1.0f,	0.0f,	1.0f, //E1
+	   0.65f,		0.0f,	0.1f,	0.1f,	0.8f,	-1.0f,	0.0f,	1.0f, //E
+	   0.75f,		0.2f,	0.15,	0.0f,	1.0f,	-1.0f,	0.0f,	1.0f, //F1
+	   0.75f,		0.0f,	0.15,	0.1f,	1.0f,	-1.0f,	0.0f,	1.0f, //F
+	   1.0,		0.2f,	0.15f,	0.0f,	0.8f,	-1.0f,	0.0f,	1.0f, //G1
+	   1.0,		0.0f,	0.15f,	0.1f,	0.8f,	-1.0f,	0.0f,	1.0f, //G
+	   1.0f,		0.2f,	0.35f,	0.0f,	1.0f,	-1.0f,	0.0f,	-1.0f, //H1
+	   1.0f,		0.0f,	0.35f,	0.1f,	1.0f,	-1.0f,	0.0f,	-1.0f, //H
+	   0.75f,		0.2f,	0.35f,	0.0f,	0.8f,	-1.0f,	0.0f,	-1.0f, //I1
+	   0.75f,		0.0f,	0.35f,	0.1f,	0.8f,	-1.0f,	0.0f,	-1.0f, //I
+	   0.65f,		0.2f,	0.4f,	0.0f,	1.0f,	-1.0f,	0.0f,	-1.0f, //J1
+	   0.65f,		0.0f,	0.4f,	0.1f,	1.0f,	-1.0f,	0.0f,	-1.0f, //J
+	   0.35f,		0.2f,	0.4f,	0.0f,	0.8f,	1.0f,	0.0f,	-1.0f, //K1
+	   0.35f,		0.0f,	0.4f,	0.1f,	0.8f,	1.0f,	0.0f,	-1.0f, //K
+	   0.25f,		0.2f,	0.35f,	0.0f,	1.0f,	1.0f,	0.0f,	-1.0f, //L1
+	   0.25f,		0.0f,	0.35f,	0.1f,	1.0f,	1.0f,	0.0f,	-1.0f, //L
+	   0.0f,		0.2f,	0.35,	0.0f,	0.8f,	0.0f,	0.0f,	-1.0f, //A1
+	   0.0f,		0.0f,	0.35,	0.1f,	0.8f,	0.0f,	0.0f,	-1.0f, //A
 
 	};
 
@@ -616,7 +622,7 @@ void CrearPrimitiva2()
 
 void CreateShaders()
 {
-	Shader *shader1 = new Shader();
+	Shader* shader1 = new Shader();
 	shader1->CreateFromFiles(vShader, fShader);
 	shaderList.push_back(*shader1);
 }
@@ -624,51 +630,56 @@ void CreateShaders()
 void inputKeyframes(bool* keys);
 
 //NEW// Keyframes
-float posXavion = -7.0, posYavion = 2.0, posZavion = 0.0;
-float movAvion_x = 0.0f, movAvion_y = 0.0f;
-float giroAvion = 0;
+float movCanica_x = 0.0f, movCanica_z = 0.0f;
 
-float rotaDomino1 = 0.0f, rotaDomino2 = 0.0f, rotaDomino3 = 0.0f, rotaDomino4 = 0.0f, rotaDomino5 = 0.0f;
+float rotaPulga = 0.0f, rotaFlipper = 0.0f, escalaResorte = 0.0f, desplazaPalanca = 0.0f, rotaDomino5 = 0.0f;
+bool cambiaDirx = false, cambiaDirz = false;
 
-float ciclo1Domino1 = 0.0f, ciclo2Domino1 = 0.0f;
-float ciclo1Domino2 = 0.0f, ciclo2Domino2 = 0.0f;
-float ciclo1Domino3 = 0.0f, ciclo2Domino3 = 0.0f;
-float ciclo1Domino4 = 0.0f, ciclo2Domino4 = 0.0f;
+float cicloMovz1 = 0.0f, cicloMovz2 = 0.0f;
+float cicloCambiaDirx1 = 0.0f, cicloCambiaDirx2 = 0.0f;
+float cicloCambiaDirz1 = 0.0f, cicloCambiaDirz2 = 0.0f;
+float cicloRotaPulga1 = 0.0f, cicloRotaPulga2 = 0.0f;
+float cicloFlipper1 = 0.0f, cicloFlipper2 = 0.0f;
+float cicloResorte1 = 0.0f, cicloResorte2 = 0.0f;
+float cicloPalanca1 = 0.0f, cicloPalanca2 = 0.0f;
 float ciclo1Domino5 = 0.0f, ciclo2Domino5 = 0.0f;
 
 #define MAX_FRAMES 100 // Valor segun los cuadros que debemos tener para no desperdiciar espacios
-int i_max_steps = 200; // mayor valor mas fluidez y mas poder de computo
-int i_curr_steps = 18;
+int i_max_steps = 50; // mayor valor mas fluidez y mas poder de computo
+int i_curr_steps = 38;
 typedef struct _frame
 {
 	//Variables para GUARDAR Key Frames
-	float movAvion_x;		//Variable para PosicionX
-	float movAvion_xInc;	//Variable para IncrementoX
-	float rotaDomino1;
-	float rotaDomino1_inc;
-	float rotaDomino2;
-	float rotaDomino2_inc;
-	float rotaDomino3;
-	float rotaDomino3_inc;
-	float rotaDomino4;
-	float rotaDomino4_inc;
+	float movCanica_x;		//Variable para PosicionX
+	float movCanica_xInc;	//Variable para IncrementoX
+	float movCanica_z;		//Variable para PosicionX
+	float movCanica_zInc;	//Variable para IncrementoX
+	float rotaPulga;
+	float rotaPulga_inc;
+	float rotaFlipper;
+	float rotaFlipper_inc;
+	float escalaResorte;
+	float escalaResorte_inc;
+	float desplazaPalanca;
+	float desplazaPalanca_inc;
 	float rotaDomino5;
 	float rotaDomino5_inc;
 }FRAME;
 
 FRAME KeyFrame[MAX_FRAMES];
-int FrameIndex = 18;		//introducir datos
+int FrameIndex = 38;		//introducir datos
 bool play = false;
 int playIndex = 0;
 
 void saveFrame() //tecla L
 {
 	printf("frameindex %d\n", FrameIndex);
-	KeyFrame[FrameIndex].movAvion_x = movAvion_x;
-	KeyFrame[FrameIndex].rotaDomino1 = rotaDomino1;
-	KeyFrame[FrameIndex].rotaDomino2 = rotaDomino2;
-	KeyFrame[FrameIndex].rotaDomino3 = rotaDomino3;
-	KeyFrame[FrameIndex].rotaDomino4 = rotaDomino4;
+	KeyFrame[FrameIndex].movCanica_x = movCanica_x;
+	KeyFrame[FrameIndex].movCanica_z = movCanica_z;
+	KeyFrame[FrameIndex].rotaPulga = rotaPulga;
+	KeyFrame[FrameIndex].rotaFlipper = rotaFlipper;
+	KeyFrame[FrameIndex].escalaResorte = escalaResorte;
+	KeyFrame[FrameIndex].desplazaPalanca = desplazaPalanca;
 	KeyFrame[FrameIndex].rotaDomino5 = rotaDomino5;
 	printf("Guardando\n");
 	FrameIndex++;
@@ -676,21 +687,23 @@ void saveFrame() //tecla L
 
 void resetElements(void) //Tecla 0
 {
-	movAvion_x = KeyFrame[0].movAvion_x;
-	rotaDomino1 = KeyFrame[0].rotaDomino1;
-	rotaDomino2 = KeyFrame[0].rotaDomino2;
-	rotaDomino3 = KeyFrame[0].rotaDomino3;
-	rotaDomino4 = KeyFrame[0].rotaDomino4;
+	movCanica_x = KeyFrame[0].movCanica_x;
+	movCanica_z = KeyFrame[0].movCanica_z;
+	rotaPulga = KeyFrame[0].rotaPulga;
+	rotaFlipper = KeyFrame[0].rotaFlipper;
+	escalaResorte = KeyFrame[0].escalaResorte;
+	desplazaPalanca = KeyFrame[0].desplazaPalanca;
 	rotaDomino5 = KeyFrame[0].rotaDomino5;
 }
 
 void interpolation(void)
 {
-	KeyFrame[playIndex].movAvion_xInc = (KeyFrame[playIndex + 1].movAvion_x - KeyFrame[playIndex].movAvion_x) / i_max_steps;
-	KeyFrame[playIndex].rotaDomino1_inc = (KeyFrame[playIndex + 1].rotaDomino1 - KeyFrame[playIndex].rotaDomino1) / i_max_steps;
-	KeyFrame[playIndex].rotaDomino2_inc = (KeyFrame[playIndex + 1].rotaDomino2 - KeyFrame[playIndex].rotaDomino2) / i_max_steps;
-	KeyFrame[playIndex].rotaDomino3_inc = (KeyFrame[playIndex + 1].rotaDomino3 - KeyFrame[playIndex].rotaDomino3) / i_max_steps;
-	KeyFrame[playIndex].rotaDomino4_inc = (KeyFrame[playIndex + 1].rotaDomino4 - KeyFrame[playIndex].rotaDomino4) / i_max_steps;
+	KeyFrame[playIndex].movCanica_xInc = (KeyFrame[playIndex + 1].movCanica_x - KeyFrame[playIndex].movCanica_x) / i_max_steps;
+	KeyFrame[playIndex].movCanica_zInc = (KeyFrame[playIndex + 1].movCanica_z - KeyFrame[playIndex].movCanica_z) / i_max_steps;
+	KeyFrame[playIndex].rotaPulga_inc = (KeyFrame[playIndex + 1].rotaPulga - KeyFrame[playIndex].rotaPulga) / i_max_steps;
+	KeyFrame[playIndex].rotaFlipper_inc = (KeyFrame[playIndex + 1].rotaFlipper - KeyFrame[playIndex].rotaFlipper) / i_max_steps;
+	KeyFrame[playIndex].escalaResorte_inc = (KeyFrame[playIndex + 1].escalaResorte - KeyFrame[playIndex].escalaResorte) / i_max_steps;
+	KeyFrame[playIndex].desplazaPalanca_inc = (KeyFrame[playIndex + 1].desplazaPalanca - KeyFrame[playIndex].desplazaPalanca) / i_max_steps;
 	KeyFrame[playIndex].rotaDomino5_inc = (KeyFrame[playIndex + 1].rotaDomino5 - KeyFrame[playIndex].rotaDomino5) / i_max_steps;
 
 }
@@ -700,18 +713,18 @@ void animate(void)
 	//Movimiento del objeto con barra espaciadora
 	if (play)
 	{
-		if (i_curr_steps >= i_max_steps) //fin de animaci髇 entre frames?
+		if (i_curr_steps >= i_max_steps) //fin de animaci贸n entre frames?
 		{
 			playIndex++;
 			printf("playindex : %d\n", playIndex);
-			if (playIndex > FrameIndex - 2)	//Fin de toda la animaci髇 con 鷏timo frame?
+			if (playIndex > FrameIndex - 2)	//Fin de toda la animaci贸n con 煤ltimo frame?
 			{
 				printf("Frame index= %d\n", FrameIndex);
 				printf("termino la animacion\n");
 				playIndex = 0;
 				play = false;
 			}
-			else //Interpolaci髇 del pr髕imo cuadro
+			else //Interpolaci贸n del pr贸ximo cuadro
 			{
 
 				i_curr_steps = 0; //Resetea contador
@@ -721,12 +734,13 @@ void animate(void)
 		}
 		else
 		{
-			//Dibujar Animaci髇
-			movAvion_x += KeyFrame[playIndex].movAvion_xInc;
-			rotaDomino1 += KeyFrame[playIndex].rotaDomino1_inc;
-			rotaDomino2 += KeyFrame[playIndex].rotaDomino2_inc;
-			rotaDomino3 += KeyFrame[playIndex].rotaDomino3_inc;
-			rotaDomino4 += KeyFrame[playIndex].rotaDomino4_inc;
+			//Dibujar Animaci贸n
+			movCanica_x += KeyFrame[playIndex].movCanica_xInc;
+			movCanica_z += KeyFrame[playIndex].movCanica_zInc;
+			rotaPulga += KeyFrame[playIndex].rotaPulga_inc;
+			rotaFlipper += KeyFrame[playIndex].rotaFlipper_inc;
+			escalaResorte += KeyFrame[playIndex].escalaResorte_inc;
+			desplazaPalanca += KeyFrame[playIndex].desplazaPalanca_inc;
 			rotaDomino5 += KeyFrame[playIndex].rotaDomino5_inc;
 			i_curr_steps++;
 		}
@@ -735,7 +749,6 @@ void animate(void)
 }
 
 ///////////////* FIN KEYFRAMES*////////////////////////////
-
 
 int main()
 {
@@ -857,8 +870,10 @@ int main()
 
 	Material_brillante = Material(4.0f, 256);
 	Material_opaco = Material(0.3f, 4);
+	Material_entreazulymediasnoches = Material(2.0, 150);
+	Material_verdesito = Material(1.0, 50);
 
-	//luz direccional, s髄o 1 y siempre debe de existir
+	//luz direccional, s贸lo 1 y siempre debe de existir
 	mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
 		0.3f, 0.3f,
 		0.0f, -1.0f, 0.0f);
@@ -962,15 +977,281 @@ int main()
 	spotLights2[1] = spotLights[0]; // Avatar
 	spotLights2[2] = spotLights[1]; // Tablero
 
+	KeyFrame[0].movCanica_x = 0.0;
+	KeyFrame[0].movCanica_z = 0.0;
+	KeyFrame[0].escalaResorte = 0.0;
+	KeyFrame[0].desplazaPalanca = 0.0;
+	KeyFrame[0].rotaPulga = 0.0;
+	KeyFrame[0].rotaFlipper = 0.0;
+
+	KeyFrame[1].movCanica_x = 0.0;
+	KeyFrame[1].movCanica_z = 5.5;
+	KeyFrame[1].escalaResorte = -0.6;
+	KeyFrame[1].desplazaPalanca = 5.0;
+	KeyFrame[1].rotaPulga = 0.0;
+	KeyFrame[1].rotaFlipper = 0.0;
+
+	KeyFrame[2].movCanica_x = 0.0;
+	KeyFrame[2].movCanica_z = 0.0;
+	KeyFrame[2].escalaResorte = 0.0;
+	KeyFrame[2].desplazaPalanca = 0.0;
+	KeyFrame[2].rotaPulga = 0.0;
+	KeyFrame[2].rotaFlipper = 0.0;
+
+	KeyFrame[3].movCanica_x = 0.0;
+	KeyFrame[3].movCanica_z = -15.0;
+	KeyFrame[3].escalaResorte = 0.0;
+	KeyFrame[3].desplazaPalanca = 0.0;
+	KeyFrame[3].rotaPulga = 0.0;
+	KeyFrame[3].rotaFlipper = 0.0;
+
+	KeyFrame[4].movCanica_x = 0.0;
+	KeyFrame[4].movCanica_z = -30.0;
+	KeyFrame[4].escalaResorte = 0.0;
+	KeyFrame[4].desplazaPalanca = 0.0;
+	KeyFrame[4].rotaPulga = 0.0;
+	KeyFrame[4].rotaFlipper = 0.0;
+
+	KeyFrame[5].movCanica_x = 0.0;
+	KeyFrame[5].movCanica_z = -45.0;
+	KeyFrame[5].escalaResorte = 0.0;
+	KeyFrame[5].desplazaPalanca = 0.0;
+	KeyFrame[5].rotaPulga = 0.0;
+	KeyFrame[5].rotaFlipper = 0.0;
+
+	KeyFrame[6].movCanica_x = 0.0;
+	KeyFrame[6].movCanica_z = -60.0;
+	KeyFrame[6].escalaResorte = 0.0;
+	KeyFrame[6].desplazaPalanca = 0.0;
+	KeyFrame[6].rotaPulga = 0.0;
+	KeyFrame[6].rotaFlipper = 0.0;
+
+	KeyFrame[7].movCanica_x = 0.0;
+	KeyFrame[7].movCanica_z = -75.0;
+	KeyFrame[7].escalaResorte = 0.0;
+	KeyFrame[7].desplazaPalanca = 0.0;
+	KeyFrame[7].rotaPulga = 0.0;
+	KeyFrame[7].rotaFlipper = 0.0;
+
+	KeyFrame[8].movCanica_x = 0.0;
+	KeyFrame[8].movCanica_z = -90.0;
+	KeyFrame[8].escalaResorte = 0.0;
+	KeyFrame[8].desplazaPalanca = 0.0;
+	KeyFrame[8].rotaPulga = 0.0;
+	KeyFrame[8].rotaFlipper = 0.0;
+
+	KeyFrame[9].movCanica_x = 0.0;
+	KeyFrame[9].movCanica_z = -105.0;
+	KeyFrame[9].escalaResorte = 0.0;
+	KeyFrame[9].desplazaPalanca = 0.0;
+	KeyFrame[9].rotaPulga = 0.0;
+	KeyFrame[9].rotaFlipper = 0.0;
+
+	KeyFrame[10].movCanica_x = -2.0;
+	KeyFrame[10].movCanica_z = -112.5;
+	KeyFrame[10].escalaResorte = 0.0;
+	KeyFrame[10].desplazaPalanca = 0.0;
+	KeyFrame[10].rotaPulga = 0.0;
+	KeyFrame[10].rotaFlipper = 0.0;
+
+	KeyFrame[11].movCanica_x = -8.0;
+	KeyFrame[11].movCanica_z = -119.5;
+	KeyFrame[11].escalaResorte = 0.0;
+	KeyFrame[11].desplazaPalanca = 0.0;
+	KeyFrame[11].rotaPulga = 0.0;
+	KeyFrame[11].rotaFlipper = 0.0;
+
+	KeyFrame[12].movCanica_x = -14.5;
+	KeyFrame[12].movCanica_z = -125.5;
+	KeyFrame[12].escalaResorte = 0.0;
+	KeyFrame[12].desplazaPalanca = 0.0;
+	KeyFrame[12].rotaPulga = 0.0;
+	KeyFrame[12].rotaFlipper = 0.0;
+
+	KeyFrame[13].movCanica_x = -21.5;
+	KeyFrame[13].movCanica_z = -131.5;
+	KeyFrame[13].escalaResorte = 0.0;
+	KeyFrame[13].desplazaPalanca = 0.0;
+	KeyFrame[13].rotaPulga = 0.0;
+	KeyFrame[13].rotaFlipper = 0.0;
+
+	KeyFrame[14].movCanica_x = -33.5;
+	KeyFrame[14].movCanica_z = -129.0;
+	KeyFrame[14].escalaResorte = 0.0;
+	KeyFrame[14].desplazaPalanca = 0.0;
+	KeyFrame[14].rotaPulga = 0.0;
+	KeyFrame[14].rotaFlipper = 0.0;
+
+	KeyFrame[15].movCanica_x = -45.0;
+	KeyFrame[15].movCanica_z = -123.5;
+	KeyFrame[15].escalaResorte = 0.0;
+	KeyFrame[15].desplazaPalanca = 0.0;
+	KeyFrame[15].rotaPulga = 0.0;
+	KeyFrame[15].rotaFlipper = 0.0;
+
+	KeyFrame[16].movCanica_x = -60.0;
+	KeyFrame[16].movCanica_z = -112.5;
+	KeyFrame[16].escalaResorte = 0.0;
+	KeyFrame[16].desplazaPalanca = 0.0;
+	KeyFrame[16].rotaPulga = 0.0;
+	KeyFrame[16].rotaFlipper = 0.0;
+
+	KeyFrame[17].movCanica_x = -57.0;
+	KeyFrame[17].movCanica_z = -99.5;
+	KeyFrame[17].escalaResorte = 0.0;
+	KeyFrame[17].desplazaPalanca = 0.0;
+	KeyFrame[17].rotaPulga = 0.0;
+	KeyFrame[17].rotaFlipper = 0.0;
+
+	KeyFrame[18].movCanica_x = -55.0;
+	KeyFrame[18].movCanica_z = -90.5;
+	KeyFrame[18].escalaResorte = 0.0;
+	KeyFrame[18].desplazaPalanca = 0.0;
+	KeyFrame[18].rotaPulga = 0.0;
+	KeyFrame[18].rotaFlipper = 0.0;
+
+	KeyFrame[19].movCanica_x = -47.0;
+	KeyFrame[19].movCanica_z = -83.0;
+	KeyFrame[19].escalaResorte = 0.0;
+	KeyFrame[19].desplazaPalanca = 0.0;
+	KeyFrame[19].rotaPulga = 0.0;
+	KeyFrame[19].rotaFlipper = 0.0;
+
+	KeyFrame[20].movCanica_x = -44.0;
+	KeyFrame[20].movCanica_z = -85.0;
+	KeyFrame[20].escalaResorte = 0.0;
+	KeyFrame[20].desplazaPalanca = 0.0;
+	KeyFrame[20].rotaPulga = 0.0;
+	KeyFrame[20].rotaFlipper = 10.0;
+
+	KeyFrame[21].movCanica_x = -40.0;
+	KeyFrame[21].movCanica_z = -90.0;
+	KeyFrame[21].escalaResorte = 0.0;
+	KeyFrame[21].desplazaPalanca = 0.0;
+	KeyFrame[21].rotaPulga = 0.0;
+	KeyFrame[21].rotaFlipper = 40.0;
+
+	KeyFrame[22].movCanica_x = -32.0;
+	KeyFrame[22].movCanica_z = -99.0;
+	KeyFrame[22].escalaResorte = 0.0;
+	KeyFrame[22].desplazaPalanca = 0.0;
+	KeyFrame[22].rotaPulga = 0.0;
+	KeyFrame[22].rotaFlipper = 40.0;
+
+	KeyFrame[23].movCanica_x = -26.5;
+	KeyFrame[23].movCanica_z = -92.5;
+	KeyFrame[23].escalaResorte = 0.0;
+	KeyFrame[23].desplazaPalanca = 0.0;
+	KeyFrame[23].rotaPulga = 10.0;
+	KeyFrame[23].rotaFlipper = 40.0;
+
+	KeyFrame[24].movCanica_x = -20.0;
+	KeyFrame[24].movCanica_z = -83.5;
+	KeyFrame[24].escalaResorte = 0.0;
+	KeyFrame[24].desplazaPalanca = 0.0;
+	KeyFrame[24].rotaPulga = 20.0;
+	KeyFrame[24].rotaFlipper = 40.0;
+
+	KeyFrame[25].movCanica_x = -10.0;
+	KeyFrame[25].movCanica_z = -71.0;
+	KeyFrame[25].escalaResorte = 0.0;
+	KeyFrame[25].desplazaPalanca = 0.0;
+	KeyFrame[25].rotaPulga = 30.0;
+	KeyFrame[25].rotaFlipper = 40.0;
+
+	KeyFrame[26].movCanica_x = -20.5;
+	KeyFrame[26].movCanica_z = -63.0;
+	KeyFrame[26].escalaResorte = 0.0;
+	KeyFrame[26].desplazaPalanca = 0.0;
+	KeyFrame[26].rotaPulga = 40.0;
+	KeyFrame[26].rotaFlipper = 30.0;
+
+	KeyFrame[27].movCanica_x = -39.0;
+	KeyFrame[27].movCanica_z = -50.5;
+	KeyFrame[27].escalaResorte = 0.0;
+	KeyFrame[27].desplazaPalanca = 0.0;
+	KeyFrame[27].rotaPulga = 30.0;
+	KeyFrame[27].rotaFlipper = 30.0;
+
+	KeyFrame[28].movCanica_x = -55.5;
+	KeyFrame[28].movCanica_z = -40.5;
+	KeyFrame[28].escalaResorte = 0.0;
+	KeyFrame[28].desplazaPalanca = 0.0;
+	KeyFrame[28].rotaPulga = 20.0;
+	KeyFrame[28].rotaFlipper = 20.0;
+
+	KeyFrame[29].movCanica_x = -64.0;
+	KeyFrame[29].movCanica_z = -30.5;
+	KeyFrame[29].escalaResorte = 0.0;
+	KeyFrame[29].desplazaPalanca = 0.0;
+	KeyFrame[29].rotaPulga = 10.0;
+	KeyFrame[29].rotaFlipper = 10.0;
+
+	KeyFrame[30].movCanica_x = -72.5;
+	KeyFrame[30].movCanica_z = -21.0;
+	KeyFrame[30].escalaResorte = 0.0;
+	KeyFrame[30].desplazaPalanca = 0.0;
+	KeyFrame[30].rotaPulga = 0.0;
+	KeyFrame[30].rotaFlipper = 0.0;
+
+	KeyFrame[31].movCanica_x = -63.5;
+	KeyFrame[31].movCanica_z = -10.5;
+	KeyFrame[31].escalaResorte = 0.0;
+	KeyFrame[31].desplazaPalanca = 0.0;
+	KeyFrame[31].rotaPulga = 0.0;
+	KeyFrame[31].rotaFlipper = 0.0;
+
+	KeyFrame[32].movCanica_x = -46.0;
+	KeyFrame[32].movCanica_z = -8.5;
+	KeyFrame[32].escalaResorte = 0.0;
+	KeyFrame[32].desplazaPalanca = 0.0;
+	KeyFrame[32].rotaPulga = 0.0;
+	KeyFrame[32].rotaFlipper = 0.0;
+
+	KeyFrame[33].movCanica_x = -36.0;
+	KeyFrame[33].movCanica_z = -5.0;
+	KeyFrame[33].escalaResorte = 0.0;
+	KeyFrame[33].desplazaPalanca = 0.0;
+	KeyFrame[33].rotaPulga = 0.0;
+	KeyFrame[33].rotaFlipper = 0.0;
+
+	KeyFrame[34].movCanica_x = -36.0;
+	KeyFrame[34].movCanica_z = -3.5;
+	KeyFrame[34].escalaResorte = 0.0;
+	KeyFrame[34].desplazaPalanca = 0.0;
+	KeyFrame[34].rotaPulga = 0.0;
+	KeyFrame[34].rotaFlipper = 0.0;
+
+	KeyFrame[35].movCanica_x = -25.5;
+	KeyFrame[35].movCanica_z = -3.5;
+	KeyFrame[35].escalaResorte = 0.0;
+	KeyFrame[35].desplazaPalanca = 0.0;
+	KeyFrame[35].rotaPulga = 0.0;
+	KeyFrame[35].rotaFlipper = 0.0;
+
+	KeyFrame[36].movCanica_x = -7.5;
+	KeyFrame[36].movCanica_z = -1.5;
+	KeyFrame[36].escalaResorte = 0.0;
+	KeyFrame[36].desplazaPalanca = 0.0;
+	KeyFrame[36].rotaPulga = 0.0;
+	KeyFrame[36].rotaFlipper = 0.0;
+
+	KeyFrame[37].movCanica_x = 0.0;
+	KeyFrame[37].movCanica_z = 0.0;
+	KeyFrame[37].escalaResorte = 0.0;
+	KeyFrame[37].desplazaPalanca = 0.0;
+	KeyFrame[37].rotaPulga = 0.0;
+	KeyFrame[37].rotaFlipper = 0.0;
+
 	GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformEyePosition = 0,
-		uniformSpecularIntensity = 0, uniformShininess = 0, uniformTextureOffset=0;
+		uniformSpecularIntensity = 0, uniformShininess = 0, uniformTextureOffset = 0;
 	GLuint uniformColor = 0;
 	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / mainWindow.getBufferHeight(), 0.1f, 1000.0f);
-	
+
 	glm::vec3 posicionFrijolito(1.0);
 	glm::vec3 posicionFrijolitoLux(1.0);
 	std::vector<float> coordsTexture;
-	
+
 	////Loop mientras no se cierra la ventana
 	while (!mainWindow.getShouldClose())
 	{
@@ -980,6 +1261,7 @@ int main()
 		lastTime = now;
 
 		//Animacion de primitivas y modelos que comienzan cuando se ejecuta
+		//---------------------------------------------------------------------------------------------------------------------------------
 		if (akuTraslacion) {
 			rotaAku -= rotaAkuOffset * deltaTime;
 			if (mueveAku > -2) {
@@ -998,7 +1280,7 @@ int main()
 				akuTraslacion = true;
 			}
 		}
-		
+
 		if (cinturonRotacion) {
 			rotaCinturon += rotaCinturonOffset * deltaTime;
 			if (rotaCinturon > 100) {
@@ -1029,6 +1311,47 @@ int main()
 			}
 		}
 
+		if (antebrazoRotacion) {
+			rotaAntebrazoSamurai += rotaAntebrazoSamuraiOffset * deltaTime;
+			if (rotaAntebrazoSamurai > 80) {
+				antebrazoRotacion = false;
+			}
+		}
+		else {
+			rotaAntebrazoSamurai -= rotaAntebrazoSamuraiOffset * deltaTime;
+			if (rotaAntebrazoSamurai < -80) {
+				antebrazoRotacion = true;
+			}
+		}
+
+		if (conejitoRotacion) {
+			rotaConejitoSamurai += rotaConejitoSamuraiOffset * deltaTime;
+			if (rotaConejitoSamurai > 45) {
+				conejitoRotacion = false;
+			}
+		}
+		else {
+			rotaConejitoSamurai -= rotaConejitoSamuraiOffset * deltaTime;
+			if (rotaConejitoSamurai < -45) {
+				conejitoRotacion = true;
+			}
+		}
+
+		if (samuraiTraslacion) {
+			mueveSamurai += mueveSamuraiOffset * deltaTime;
+			if (mueveSamurai > 10) {
+				samuraiTraslacion = false;
+			}
+		}
+		else {
+			mueveSamurai -= mueveSamuraiOffset * deltaTime;
+			if (mueveSamurai < -10) {
+				samuraiTraslacion = true;
+			}
+		}
+
+		//Animaciones de canica
+		//---------------------------------------------------------------------------------------------------------------------------------------
 		if (mainWindow.getAlternaAnimacion()) {
 			if (mainWindow.getMouseDerecho()) {
 				if (retraeResorte > 0.25) {
@@ -1098,13 +1421,36 @@ int main()
 				}
 
 				if (pegaParedFinal) {
-					if (mueveXCanica1 > -40) {
-						mueveCanica1 += (mueveCanica1Offset * 0.6) * deltaTime;
-						mueveXCanica1 -= mueveXCanica1Offset * deltaTime;
+					if (mainWindow.getFlipper3()) {
+						if (mueveXCanica1 > -27) {
+							mueveCanica1 += (mueveCanica1Offset * 0.4) * deltaTime;
+							mueveXCanica1 -= mueveXCanica1Offset * deltaTime;
+						}
+						else {
+							if (mueveXCanica1 > -35) {
+								mueveCanica1 -= (mueveCanica1Offset * 0.4) * deltaTime;
+								mueveXCanica1 -= mueveXCanica1Offset * deltaTime;
+							}
+							else {
+								if (mueveCanica1 < -5) {
+									mueveCanica1 += (mueveCanica1Offset) * deltaTime;
+								}
+								else {
+									pegaParedFinal = false;
+										derrota = true;
+								}
+							}
+						}
 					}
 					else {
-						pegaParedFinal = false;
-						derrota = true;
+						if (mueveXCanica1 > -40) {
+							mueveCanica1 += (mueveCanica1Offset * 0.6) * deltaTime;
+							mueveXCanica1 -= mueveXCanica1Offset * deltaTime;
+						}
+						else {
+							pegaParedFinal = false;
+							derrota = true;
+						}
 					}
 				}
 
@@ -1117,7 +1463,6 @@ int main()
 						mueveXCanica1 = 0;
 						iniciaAnimacionPrincipal = false;
 						derrota = false;
-						//subeCanica = false;
 					}
 				}
 			}
@@ -1127,8 +1472,8 @@ int main()
 			inputKeyframes(mainWindow.getsKeys());
 			animate();
 		}
-		
 
+		//---------------------------------------------------------------------------------------------------------------------------------
 		//Recibir eventos del usuario
 		glfwPollEvents();
 		camera.keyControl(mainWindow.getsKeys(), deltaTime);
@@ -1138,7 +1483,7 @@ int main()
 		// Clear the window
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		
+
 		tiempoDiaNoche += 1.0f;
 		if (tiempoDiaNoche < (maxTiempo * 5)) {
 			skybox.DrawSkybox(camera.calculateViewMatrix(), projection);
@@ -1155,7 +1500,7 @@ int main()
 		uniformColor = shaderList[0].getColorLocation();
 		uniformTextureOffset = shaderList[0].getOffsetLocation();
 
-		//informaci髇 en el shader de intensidad especular y brillo
+		//informaci贸n en el shader de intensidad especular y brillo
 		uniformSpecularIntensity = shaderList[0].GetSpecularIntensityLocation();
 		uniformShininess = shaderList[0].GetShininessLocation();
 
@@ -1170,7 +1515,7 @@ int main()
 		else if (mainWindow.getAvatar()) {
 			glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix(posicionFrijolito)));
 		}
-		
+
 		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix()));
 
 		glUniform3f(uniformEyePosition, camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
@@ -1192,8 +1537,8 @@ int main()
 		spotLights[2].SetFlash(luzFlippers, glm::vec3(0.0f, -1.0f, -1.0f));
 		spotLights1[1].SetFlash(luzFlippers, glm::vec3(0.0f, -1.0f, -1.0f));
 		spotLights2[0].SetFlash(luzFlippers, glm::vec3(0.0f, -1.0f, -1.0f));
-		
-		if (tiempoDiaNoche < (maxTiempo*5)) {
+
+		if (tiempoDiaNoche < (maxTiempo * 5)) {
 			shaderList[0].SetDirectionalLight(&mainLight);
 		}
 		else if (tiempoDiaNoche >= (maxTiempo * 5) && tiempoDiaNoche < (maxTiempo * 10)) {
@@ -1293,7 +1638,7 @@ int main()
 		glm::mat4 modelaux(1.0);
 		glm::vec3 color = glm::vec3(1.0f, 1.0f, 1.0f);
 		glm::vec2 toffset = glm::vec2(0.0f, 0.0f);
-		
+
 		glUniform2fv(uniformTextureOffset, 1, glm::value_ptr(toffset));
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(0.0f, -2.0f, 0.0f));
@@ -1312,14 +1657,14 @@ int main()
 
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(36.6f, 47.0f, 70.0f));
-		model = glm::scale(model, glm::vec3(1.0f, 1.0f, retraeResorte));
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, retraeResorte + escalaResorte));
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Resorte_M.RenderModel();
 
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(37.0f, 46.0f, 86.0f + muevePalanca));
-		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		model = glm::translate(model, glm::vec3(37.0f, 46.0f, 86.0f + muevePalanca + desplazaPalanca));
+		Material_entreazulymediasnoches.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Palanca_M.RenderModel();
 
@@ -1332,40 +1677,38 @@ int main()
 		// Canica 1
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(37.5f, 48.0f, 54.0f));
-		model = glm::rotate(model, 5 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));		
+		model = glm::rotate(model, 5 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
 		if (!iniciaAnimacionPrincipal) {
 			model = glm::translate(model, glm::vec3(0, 0, iniciaCanica));
 			model = glm::rotate(model, rotaCanicaInicio * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
 		}
-		model = glm::translate(model, glm::vec3(mueveXCanica1, 0, mueveCanica1));
+		model = glm::translate(model, glm::vec3(mueveXCanica1 + movCanica_x, 0, mueveCanica1 + movCanica_z));
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		CanicaMetalica_M.RenderModel();
 
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(27.5f + deslizaCanica, 48.0f, 54.0f));
-		model = glm::rotate(model, rotaCanicaInicio * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(27.5f, 48.0f, 54.0f));
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		CanicaMetalica_M.RenderModel();
 
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(17.5f + deslizaCanica, 48.0f, 54.0f));
-		model = glm::rotate(model, rotaCanicaInicio * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(17.5f, 48.0f, 54.0f));
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		CanicaMetalica_M.RenderModel();
 
-		model = glm::mat4(1.0); 
+		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(26.0f, 49.0f, 31.0f));
 		model = glm::rotate(model, glm::radians(mainWindow.getFlipper3()), glm::vec3(0.0f, 1.0f, 0.0f));
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Flipper3_M.RenderModel(); //Abajo derecha
 
-		model = glm::mat4(1.0); 
+		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-17.0f, 57.0f, -30.0f));
-		model = glm::rotate(model, glm::radians(mainWindow.getFlipper2()), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(mainWindow.getFlipper2()) + (rotaFlipper * toRadians), glm::vec3(0.0f, 1.0f, 0.0f));
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Flipper2_M.RenderModel(); //Arriba al fondo
@@ -1391,58 +1734,60 @@ int main()
 		model = glm::translate(model, glm::vec3(mainWindow.getTrasladaXFrijolito(), 0.0f, 0.0 + mainWindow.getTrasladaZFrijolito()));
 		posicionFrijolitoLux = model[3];
 		modelaux = model;
-		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		Material_verdesito.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		FrijolitoCuerpo_M.RenderModel();
 		model = glm::translate(model, glm::vec3(-5.0, 5.0f, 0.0f));
 		posicionFrijolito = model[3];
 
 		model = modelaux;
-		model = glm::translate(model, glm::vec3(0.2f ,0.05f, -0.35f));
+		model = glm::translate(model, glm::vec3(0.2f, 0.05f, -0.35f));
 		model = glm::rotate(model, glm::radians(mainWindow.getRotaBrazoIzquierdo()), glm::vec3(0.0f, 0.0f, 1.0f));
-		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		Material_verdesito.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		FrijolitoBrazoIzq_M.RenderModel();
 
 		model = modelaux;
 		model = glm::translate(model, glm::vec3(0.2f, 0.15f, 0.35f));
 		model = glm::rotate(model, glm::radians(mainWindow.getRotaBrazoDerecho()), glm::vec3(0.0f, 0.0f, 1.0f));
-		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		Material_verdesito.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		FrijolitoBrazoDer_M.RenderModel();
 
 		model = modelaux;
 		model = glm::translate(model, glm::vec3(0.05f, -0.4f, -0.2f));
 		model = glm::rotate(model, glm::radians(mainWindow.getRotaPiernaIzquierda()), glm::vec3(0.0f, 0.0f, 1.0f));
-		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		Material_verdesito.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		FrijolitoPiernaIzq_M.RenderModel();
 
 		model = modelaux;
 		model = glm::translate(model, glm::vec3(0.05f, -0.4f, 0.2f));
 		model = glm::rotate(model, glm::radians(mainWindow.getRotaPiernaDerecha()), glm::vec3(0.0f, 0.0f, 1.0f));
-		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		Material_verdesito.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		FrijolitoPiernaDer_M.RenderModel();
 
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-26.0f, 50.0f, 11.0f));
-		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		model = glm::translate(model, glm::vec3(-26.0f + mueveSamurai, 50.0f, 11.0f));
+		Material_entreazulymediasnoches.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		SamuraiJackCuerpo_M.RenderModel();
 
 		model = glm::translate(model, glm::vec3(1.05f, 7.9f, 1.35f));
-		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		model = glm::rotate(model, rotaAntebrazoSamurai * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		Material_entreazulymediasnoches.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		SamuraiJackConejito_M.RenderModel();
-		
+
 		model = glm::translate(model, glm::vec3(0.4f, -0.1f, 1.3f));
-		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		model = glm::rotate(model, rotaAntebrazoSamurai * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		Material_entreazulymediasnoches.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		SamuraiJackAntebrazo_M.RenderModel();
 
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(3.0f, 52.0f, 18.0));
+		model = glm::translate(model, glm::vec3(-2.0f, 52.0f, 18.0));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Ring_M.RenderModel();
 
@@ -1459,7 +1804,8 @@ int main()
 		SamuraiJackSimbolo_M.RenderModel();
 
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(11.0f, 60.0f, -52.0f));
+		model = glm::translate(model, glm::vec3(5.0f, 60.0f, -50.0f));
+		model = glm::rotate(model, rotaPulga * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		LaPulga_M.RenderModel();
@@ -1485,7 +1831,7 @@ int main()
 
 		//PRIMITIVAS
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(5.0f + mueveAku, 56.7f, -34.1f));
+		model = glm::translate(model, glm::vec3(25.0f + mueveAku, 56.7f, -34.1f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Palito_M.RenderModel();
 		model = glm::translate(model, glm::vec3(0.0f, 0.3f, 0.0f));
@@ -1493,7 +1839,7 @@ int main()
 		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::rotate(model, rotaAku * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		akuTexture.UseTexture();
+		akuTexture.UseTexture(); // Al fondo
 		meshList[7]->RenderMesh();
 
 		model = glm::mat4(1.0);
@@ -1536,7 +1882,7 @@ int main()
 		meshList[8]->RenderMesh(); //Arriba izquierda
 
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(19.0f, 55.0f + mueveCinturon, -22.0f));
+		model = glm::translate(model, glm::vec3(19.0f, 55.0f + mueveCinturon, -18.0f));
 		modelaux = model;
 		model = glm::scale(model, glm::vec3(2.0f, 1.0f, 1.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -1564,10 +1910,10 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		cinturonTexture.UseTexture();
 		meshList[8]->RenderMesh(); //Abajo	
-		
+
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		
+
 		if (cambiaNumeroVisibleOffset > 100.0) {
 			cambiaNumeroVisibleOffset = 0.0;
 			punt0 += 1;
@@ -1579,10 +1925,10 @@ int main()
 		if (punt0 > 9) {
 			punt1 += 1;
 			punt0 = 0;
-		}		
+		}
 
 		coordsTexture = getCoordsTexture(punt0);
-			
+
 		/* 0.00 -> 1,2,3,4
 		 0.33 -> 9,0,simbolos
 		 0.66 -> 5,6,7,8*/
@@ -1602,7 +1948,7 @@ int main()
 		if (punt1 > 9) {
 			punt1 = 0;
 			punt2 += 1;
-		}			
+		}
 
 		coordsTexture = getCoordsTexture(punt1);
 		toffset = glm::vec2(coordsTexture[0], coordsTexture[1]);
@@ -1757,7 +2103,6 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		//PinballCristal_M.RenderModel();
 
-
 		glDisable(GL_BLEND);
 
 		glUseProgram(0);
@@ -1770,6 +2115,48 @@ int main()
 
 void inputKeyframes(bool* keys)
 {
+	if (keys[GLFW_KEY_F5])
+	{
+		if (cicloCambiaDirx1 < 1)
+		{
+			cambiaDirx = !cambiaDirx;
+			printf("Cambio direccion\n");
+			cicloCambiaDirx1++;
+			cicloCambiaDirx2 = 0;
+			printf("\n Presiona la tecla F6 para poder habilitar la variable\n");
+		}
+
+	}
+	if (keys[GLFW_KEY_F6] && GLFW_PRESS)
+	{
+		if (cicloCambiaDirx2 < 1 && cicloCambiaDirx1>0)
+		{
+			cicloCambiaDirx1 = 0;
+			printf("\n Ya puedes modificar tu variable presionando la tecla F5\n");
+		}
+	}
+
+	if (keys[GLFW_KEY_F7])
+	{
+		if (cicloCambiaDirz1 < 1)
+		{
+			cambiaDirz = !cambiaDirz;
+			printf("Cambio direccion\n");
+			cicloCambiaDirz1++;
+			cicloCambiaDirz2 = 0;
+			printf("\n Presiona la tecla F7 para poder habilitar la variable\n");
+		}
+
+	}
+	if (keys[GLFW_KEY_F8] && GLFW_PRESS)
+	{
+		if (cicloCambiaDirz2 < 1 && cicloCambiaDirz1>0)
+		{
+			cicloCambiaDirz1 = 0;
+			printf("\n Ya puedes modificar tu variable presionando la tecla F8\n");
+		}
+	}
+
 	if (keys[GLFW_KEY_SPACE])
 	{
 		if (reproduciranimacion < 1)
@@ -1809,12 +2196,12 @@ void inputKeyframes(bool* keys)
 		if (guardoFrame < 1)
 		{
 			saveFrame();
-			printf("movAvion_x es: %f\n", movAvion_x);
-			printf("rotaDomino1 es: %f\n", rotaDomino1);
-			printf("rotaDomino2 es: %f\n", rotaDomino2);
-			printf("rotaDomino3 es: %f\n", rotaDomino3);
-			printf("rotaDomino4 es: %f\n", rotaDomino4);
-			printf("rotaDomino5 es: %f\n", rotaDomino5);
+			printf("movCanica_x es: %f\n", movCanica_x);
+			printf("movCanica_z es: %f\n", movCanica_z);
+			printf("escalaResorte es: %f\n", escalaResorte);
+			printf("desplazaPalanca es: %f\n", desplazaPalanca);
+			printf("rotaPulga es: %f\n", rotaPulga);
+			printf("rotaFlipper es: %f\n", rotaFlipper);
 			printf("presiona P para habilitar guardar otro frame'\n");
 			guardoFrame++;
 			reinicioFrame = 0;
@@ -1834,8 +2221,11 @@ void inputKeyframes(bool* keys)
 	{
 		if (ciclo < 1)
 		{
-			movAvion_x += 0.5f;
-			printf("movAvion_x es: %f\n", movAvion_x);
+			if (cambiaDirx)
+				movCanica_x += 0.5f;
+			else
+				movCanica_x -= 0.5f;
+			printf("movCanica_x es: %f\n", movCanica_x);
 			ciclo++;
 			ciclo2 = 0;
 			printf("\n Presiona la tecla 2 para poder habilitar la variable\n");
@@ -1853,84 +2243,114 @@ void inputKeyframes(bool* keys)
 
 	if (keys[GLFW_KEY_3])
 	{
-		if (ciclo1Domino1 < 1)
+		if (cicloMovz1 < 1)
 		{
-			rotaDomino1 += 5.0f;
-			printf("rotaDomino1 es: %f\n", rotaDomino1);
-			ciclo1Domino1++;
-			ciclo2Domino1 = 0;
+			if (cambiaDirz)
+				movCanica_z += 0.5f;
+			else
+				movCanica_z -= 0.5f;
+			printf("movCanica_z es: %f\n", movCanica_z);
+			cicloMovz1++;
+			cicloMovz2 = 0;
 			printf("\n Presiona la tecla 4 para poder habilitar la variable\n");
 		}
 
 	}
 	if (keys[GLFW_KEY_4] && GLFW_PRESS)
 	{
-		if (ciclo2Domino1 < 1 && ciclo1Domino1>0)
+		if (cicloMovz2 < 1 && cicloMovz1>0)
 		{
-			ciclo1Domino1 = 0;
+			cicloMovz1 = 0;
 			printf("\n Ya puedes modificar tu variable presionando la tecla 3\n");
+		}
+	}
+
+	if (keys[GLFW_KEY_5])
+	{
+		if (cicloRotaPulga1 < 1)
+		{
+			rotaPulga += 5.0f;
+			printf("rotaPulga es: %f\n", rotaPulga);
+			cicloMovz1++;
+			cicloRotaPulga2 = 0;
+			printf("\n Presiona la tecla 6 para poder habilitar la variable\n");
+		}
+
+	}
+	if (keys[GLFW_KEY_6] && GLFW_PRESS)
+	{
+		if (cicloRotaPulga2 < 1 && cicloRotaPulga1>0)
+		{
+			cicloRotaPulga1 = 0;
+			printf("\n Ya puedes modificar tu variable presionando la tecla 5\n");
 		}
 	}
 
 	if (keys[GLFW_KEY_E])
 	{
-		if (ciclo1Domino2 < 1)
+		if (cicloFlipper1 < 1)
 		{
-			rotaDomino2 += 5.0f;
-			printf("rotaDomino2 es: %f\n", rotaDomino2);
-			ciclo1Domino2++;
-			ciclo2Domino2 = 0;
+			rotaFlipper += 5.0f;
+			printf("rotaFlipper es: %f\n", rotaFlipper);
+			cicloFlipper1++;
+			cicloFlipper2 = 0;
 			printf("\n Presiona la tecla R para poder habilitar la variable\n");
 		}
 
 	}
 	if (keys[GLFW_KEY_R] && GLFW_PRESS)
 	{
-		if (ciclo2Domino2 < 1 && ciclo1Domino2>0)
+		if (cicloFlipper2 < 1 && cicloFlipper1>0)
 		{
-			ciclo1Domino2 = 0;
+			cicloFlipper1 = 0;
 			printf("\n Ya puedes modificar tu variable presionando la tecla E\n");
 		}
 	}
 
 	if (keys[GLFW_KEY_T])
 	{
-		if (ciclo1Domino3 < 1)
+		if (cicloResorte1 < 1)
 		{
-			rotaDomino3 += 5.0f;
-			printf("rotaDomino3 es: %f\n", rotaDomino3);
-			ciclo1Domino3++;
-			ciclo2Domino3 = 0;
+			if (cambiaDirz)
+				escalaResorte -= 0.1f;
+			else
+				escalaResorte += 0.1f;
+			printf("escalaResorte es: %f\n", escalaResorte);
+			cicloResorte1++;
+			cicloResorte2 = 0;
 			printf("\n Presiona la tecla Y para poder habilitar la variable\n");
 		}
 
 	}
 	if (keys[GLFW_KEY_Y] && GLFW_PRESS)
 	{
-		if (ciclo2Domino3 < 1 && ciclo1Domino3>0)
+		if (cicloResorte2 < 1 && cicloResorte1>0)
 		{
-			ciclo1Domino3 = 0;
+			cicloResorte1 = 0;
 			printf("\n Ya puedes modificar tu variable presionando la tecla T\n");
 		}
 	}
 
 	if (keys[GLFW_KEY_U])
 	{
-		if (ciclo1Domino4 < 1)
+		if (cicloPalanca1 < 1)
 		{
-			rotaDomino4 += 5.0f;
-			printf("rotaDomino4 es: %f\n", rotaDomino4);
-			ciclo1Domino4++;
-			ciclo2Domino4 = 0;
+			if (cambiaDirz)
+				desplazaPalanca += 0.1f;
+			else
+				desplazaPalanca -= 0.1f;
+			printf("desplazaPalanca es: %f\n", desplazaPalanca);
+			cicloPalanca1++;
+			cicloPalanca2 = 0;
 			printf("\n Presiona la tecla I para poder habilitar la variable\n");
 		}
 
 	}
 	if (keys[GLFW_KEY_I] && GLFW_PRESS)
 	{
-		if (ciclo2Domino4 < 1 && ciclo1Domino4>0)
+		if (cicloPalanca2 < 1 && cicloPalanca1>0)
 		{
-			ciclo1Domino4 = 0;
+			cicloPalanca1 = 0;
 			printf("\n Ya puedes modificar tu variable presionando la tecla I\n");
 		}
 	}
